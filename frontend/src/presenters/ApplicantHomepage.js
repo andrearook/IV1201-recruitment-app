@@ -1,6 +1,7 @@
 import ApplicantHomepageView from "../views/ApplicantHomepageView";
 import { useState} from 'react';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 /**
  * This is a React function component responsible for the frontend logic
@@ -9,8 +10,17 @@ import { useNavigate } from "react-router-dom";
  * @returns A view, a user interface, to display in the browser.
  */
 function ApplicantHomepage() {
+
     const [result, setResult] = useState("");
     const navigate = useNavigate();
+
+    /**
+     * useSelector() will look in the index.js file after Provider.
+     * Provider will provide useSelector with the store state which
+     * is the state parameter. reduxPerson is an object with 
+     * the store state's parameters.
+     */
+    const reduxPerson = useSelector(state => state.auth.person);
 
     /**
      * Helper function to verify that JWT is working.
@@ -22,8 +32,6 @@ function ApplicantHomepage() {
         e.preventDefault();
 
         performAuth().then(res => {
-            console.log(res.data);
-            console.log(res.status);
             switch(res.status){
                 case 200:   
                     setResult(res.data.result);
@@ -63,6 +71,7 @@ function ApplicantHomepage() {
 
     return (
         ApplicantHomepageView({
+            reduxPerson,
             handleClick, 
             result
         })

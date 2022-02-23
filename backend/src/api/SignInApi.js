@@ -64,7 +64,12 @@ class SignInApi extends RequestHandler {
                             const role = (signedInPerson.role_id === 1) ? "recruiter" : "applicant";
                             Authorization.setAuthCookie(signedInPerson, res);
                             res.status(200).json({ 
-                                result: 'Successfull sign in', 
+                                result: 'Successfull sign in',
+                                person: {
+                                    name: signedInPerson.name,
+                                    surname: signedInPerson.surname,
+                                    username: signedInPerson.username
+                                },
                                 role: role
                             });
                         } else {

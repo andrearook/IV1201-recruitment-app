@@ -107,9 +107,16 @@ class SignUpApi extends RequestHandler {
                             undefined,
                             req.body.username
                         );
-                        const result = await this.contr.createPerson(person);
-                        console.log(result);
-                        res.status(200).json({ result: 'Successfull signup' });
+                        const createdPerson = await this.contr.createPerson(person);
+                        console.log(createdPerson);
+                        res.status(200).json({ 
+                            result: 'Successfull signup',
+                            person: {
+                                name: createdPerson.name,
+                                surname: createdPerson.surname,
+                                username: createdPerson.username
+                            },
+                        });
                     } catch (err) {
                         next(err);
                     }

@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import { setCurrentPerson } from '../store/actions/Actions';
 import SignInView from '../views/SignInView';
 
 /**
@@ -13,6 +15,11 @@ function SignIn() {
     const [credentials, setCredentials] = useState({username: '', password: ''});
     // Result could be an error message to show if and why the sign in failed
     const [result, setResult] = useState("");
+
+    /**
+     * useDispatch() will dispatch actions to the reducer.
+     */
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setCredentials(prevState => ({
@@ -32,9 +39,8 @@ function SignIn() {
         e.preventDefault();
 
         performSignIn().then(res => {
-            console.log(res.data);
-            console.log(res.status);
             if(res.status === 200) {
+                dispatch(setCurrentPerson(res.data.person));
                 setResult(res.data.result);
                 if(res.data.role === 'recruiter') {
                     navigate("/recruiterhomepage");

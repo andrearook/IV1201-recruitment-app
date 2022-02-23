@@ -1,6 +1,6 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import SignUpView from '../views/SignUpView';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { setCurrentPerson } from '../store/actions/Actions';
 
@@ -21,14 +21,8 @@ function SignUp() {
     }
 
     /**
-     * useSelector() will look in the index.js file after Provider.
-     * Provider will provide useSelector with the store state which
-     * is the state parameter. reduxPerson is an object with 
-     * the store state's parameters.
-     * 
      * useDispatch() will dispatch actions to the reducer.
      */
-    const reduxPerson = useSelector(state => state.auth.person);
     const dispatch = useDispatch();
 
     // Used to redirect to another page
@@ -64,6 +58,7 @@ function SignUp() {
         });
 
         if(status === 200) {
+            dispatch(setCurrentPerson(newData.person));
             setReturnedData(newData.result);
             navigate("/applicanthomepage");
         } else {
@@ -71,18 +66,6 @@ function SignUp() {
         }
     }
 
-    /**
-     * This is needed to always get the newest redux state 
-     * rendered when signing up a new person. UseEffect runs both after the first render
-     * and after every update.
-     * The second parameter is to prevent useEffect to run continuously on every render,
-     * it will only run when this component state has changed/differs from redux state.
-     */
-    useEffect(() => {
-        dispatch(setCurrentPerson(person));
-    }, [dispatch, person]);
-
-    console.log(reduxPerson); //helper, to see redux state
     return SignUpView({
         setInput: setInput, 
         getData: getData, 
