@@ -13,18 +13,33 @@ const PersonDTO = require('../model/PersonDTO');
 class RecruitmentDAO {
 
     /**
-     * Constructor of RecruitmentDAO
+     * Constructor of RecruitmentDAO.
+     * 
      * Setup the connection to the database.
+     * If running Heroku NODE_ENV will be in production, and the database configs will be
+     * fetched from Heroku. Otherwise the config for the database will be fetched from .env.
      */
     constructor() {
         const namespace = cls.createNamespace('recruitment_db');
         Sequelize.useCLS(namespace);
-        this.database = new Sequelize(
-            process.env.DB_NAME,
-            process.env.DB_USER,
-            process.env.DB_PASS,
-            {host: process.env.DB_HOST, dialect: process.env.DB_DIALECT},   
-        );
+        if(process.env.NODE_ENV === "production") {
+            this.database = new Sequelize(process.env.DATABASE_URL, {
+                dialect: 'postgres',
+                dialectOptions: {
+                   ssl: {
+                       require: true,
+                       rejectUnauthorized: false
+                   }
+               }
+            });
+        } else {
+            this.database = new Sequelize(
+               process.env.DB_NAME,
+               process.env.DB_USER,
+               process.env.DB_PASS,
+               {host: process.env.DB_HOST, dialect: process.env.DB_DIALECT},   
+           );
+        }
         Person.createModel(this.database);
     }
 
