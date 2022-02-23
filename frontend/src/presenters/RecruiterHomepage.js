@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import RecruiterHomepageView from "../views/RecruiterHomepageView";
 
@@ -13,6 +14,14 @@ function RecruiterHomepage() {
     const navigate = useNavigate();
 
     /**
+     * useSelector() will look in the index.js file after Provider.
+     * Provider will provide useSelector with the store state which
+     * is the state parameter. reduxPerson is an object with 
+     * the store state's parameters.
+     */
+     const reduxPerson = useSelector(state => state.auth.person);
+
+    /**
      * Helper function to verify that JWT is working.
      * This method might change futher on.
      * 
@@ -22,8 +31,6 @@ function RecruiterHomepage() {
         e.preventDefault();
 
         performAuth().then(res => {
-            console.log(res.data);
-            console.log(res.status);
             switch(res.status){
                 case 200:   
                     setResult(res.data.result);
@@ -63,6 +70,7 @@ function RecruiterHomepage() {
     
     return (
         RecruiterHomepageView({
+            reduxPerson,
             handleClick,
             result
         })

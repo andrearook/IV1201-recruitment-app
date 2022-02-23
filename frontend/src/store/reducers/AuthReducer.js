@@ -1,11 +1,8 @@
 const initialState = {
     person: {
-        name: 'reduxname',
-        surname: 'reduxsurname',
-        pnr: 'reduxpnr',
-        email: 'reduxemail',
-        password: 'reduxpassword',
-        username: 'reduxusername',
+        name: '',
+        surname: '',
+        username: '',
     }
 };
 
