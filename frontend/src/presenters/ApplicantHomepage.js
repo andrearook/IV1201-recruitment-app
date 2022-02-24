@@ -4,38 +4,99 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 /**
- * This is a React function component responsible for the frontend logic
- * when an applicant is signed in and presenting that user interface.
+ * This is a React functional component which is responsible for the frontend logic
+ * for the applicants homepage and presenting the corresponding user interface.
  * 
  * @returns A view, a user interface, to display in the browser.
  */
 function ApplicantHomepage() {
 
     const [result, setResult] = useState("");
-    /**
-     * For testing purposes
-     */
-    const [competences, setCompetences] = useState([]);
+    const [competence, setCompetence] = useState([{ id: "", experience: ""}]);
+    const [availability, setAvailability] = useState([{ from: "", to: ""}]);
+    const [competenceList, setCompetenceList] = useState([{id: "", name: ""}]);
     const navigate = useNavigate();
 
-    /**
-     * useSelector() will look in the index.js file after Provider.
-     * Provider will provide useSelector with the store state which
-     * is the state parameter. reduxPerson is an object with 
-     * the store state's parameters.
-     */
     const reduxPerson = useSelector(state => state.auth.person);
 
     /**
-     * Helper function to verify that JWT is working.
-     * This method might change futher on.
+     * Creates a GET-request fot fetching the competences to display
+     * in ApplicantHomepageView. 
      * 
-     * @param {Event} e The event from click on button
+     * @returns The response containing the competences from the server.
      */
-    const handleClick = (e) => {
+    const getCompetences = async () => {
+        let status;
+        let statusText;
+        return await fetch('/applicant/', {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                'accept': 'application/json'
+            }
+        }).then(res => {
+            status = res.status;
+            statusText = res.statusText;
+            return res.json();
+        }).then(data => {
+            return {status, data};
+        }).catch(err => {
+            return {status, data: {error: statusText}};
+        });
+    }
+
+    /**
+     * Handles the changed input for competence.
+     * 
+     * @param {index} i: The index.
+     * @param {Event} e: The event. 
+     */
+    const handleChangeCompetence = (i, e) => {
+        let newInput = [...competence];
+        newInput[i][e.target.name] = e.target.value;
+        setCompetence(newInput);
+    }
+
+    /**
+     * For adding another field to input competence.
+     */
+    const handleAddCompetence = () => {
+        setCompetence([...competence, { id: "", experience: ""}])
+    }
+
+    /**
+     * Handles the changed input for availability.
+     * 
+     * @param {index} i: The index
+     * @param {Event} e: The event 
+     */
+    const handleChangeAvailability = (i, e) => {
+        let newInput = [...availability];
+        newInput[i][e.target.name] = e.target.value;
+        setAvailability(newInput);
+    }
+
+    /**
+     * For adding another field to input availability.
+     */
+    const handleAddAvailability = () => {
+        setAvailability([...availability, { from: "", to: ""}])
+    }
+
+    /**
+     * Handles the submitting of the application.
+     * Checks the response from the server. If the response from the server returns
+     *      status 200:     sets the result.
+     *      status 401:     informs the user about being unauthorized, and gets redirected
+     *                      to the sign in page.
+     *      status XXX:     default, sets an error message.
+     * 
+     * @param {Event} e The event from click on button.
+     */
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        performAuth().then(res => {
+        performApply().then(res => {
             switch(res.status){
                 case 200:   
                     setResult(res.data.result);
@@ -52,32 +113,25 @@ function ApplicantHomepage() {
     }
 
     /**
-     * For testing purposes
+     * Creates a POST-request containing the persons username, the filled in competence
+     * and availability.
      * 
-     * @returns {Array} The competences
+     * @returns the response from the server.
      */
-    const getCompetences = async () => {
-        return await fetch('/applicant/', {
-            method: 'GET',
-            headers: {
-                'content-type': 'aplication/json',
-                'accept': 'application/json'
-            }
-        }).then(res => res.json())
-        .then(data => data.competences);
-    }
-
-    // credentials: 'include' is a header that should probably 
-    // be included later for auth
-    const performAuth = async () => {
+    const performApply = async () => {
         let status;
         let statusText;
-        return await fetch('/applicant/apply', {
-            method: 'GET',
+        return await fetch('/applicant/apply/', {
+            method: 'POST',
             headers: {
                 'content-type': 'application/json',
                 'accept': 'application/json'
-            }
+            },
+            body: JSON.stringify({
+                username: reduxPerson.username,
+                competences: competence,
+                availabilities: availability,
+            })
         }).then(res => {
             status = res.status;
             statusText = res.statusText;
@@ -90,21 +144,39 @@ function ApplicantHomepage() {
     }
 
     /**
-     * For testing purposes.
-     * 
+     * This method runs at the initial render.
+     * Gets the competences from the server and sets the competence list. 
+     * If the response from the server returns
+     *      status 200:     sets the competence list.
+     *      status 401:     informs the user about being unauthorized, and gets redirected
+     *                      to the sign in page.
+     *      status XXX:     default, sets an error message.
      */
     useEffect(() => {
-        getCompetences().then((comp) => {
-            setCompetences(comp);
+        getCompetences().then((res) => {
+            if(res.status === 200) {
+                setCompetenceList(res.data.competences);
+            } else if(res.status === 401) {
+                window.alert('Unauthorized. You will be redirected to signin');
+                navigate('/');
+            } else {
+                setResult(res.data.error);
+            }
         })
     }, []);
 
     return (
         ApplicantHomepageView({
-            competences, //for testing purposes
+            competenceList,
+            competence,
+            availability,
             reduxPerson,
-            handleClick, 
-            result
+            handleAddCompetence, 
+            handleChangeCompetence,
+            handleAddAvailability,
+            handleChangeAvailability,
+            handleSubmit,
+            result,
         })
     );
 }

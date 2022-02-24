@@ -88,27 +88,6 @@ class ApplicantApi extends RequestHandler {
             console.log('Error in applicant registerhandler: ' + err);
         }
     }
-
-    /**
-     * A helper funtion.
-     * Not currently in use.
-     * 
-     * @returns an object imitating the JSON of the application request.
-     */
-    getApplicationDataDummy() {
-        return {
-            username: "dbconn2",
-            competences: [
-                { id: 1, experience: 0.2 },
-                { id: 2, experience: 0.5 },
-                { id: 3, experience: 3 },
-            ],
-            availabilities: [
-                { from: "2022-06-01", to: "2022-06-30"},
-                { from: "2022-06-01", to: "2022-06-30"},
-            ],
-        }
-    }
 }
 
 module.exports = ApplicantApi;
