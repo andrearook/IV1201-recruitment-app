@@ -10,11 +10,11 @@ const saltRounds = parseInt(process.env.SALT_ROUNDS);
  * 
  */
 class Controller {
+
     /**
-     * Creates an instance.
+     * Creates an instance and connects to the database.
      */
     constructor() {
-        // Shall connect to database by creating a DAO-object
         this.recruitmentDAO = new RecruitmentDAO();
         this.transactionManager = this.recruitmentDAO.getTransactionManager();
     }
@@ -30,11 +30,11 @@ class Controller {
     }
 
     /**
-     * Create a person by calling RecruitmentDao and passing the parameter person
+     * Create a person by calling RecruitmentDAO and passing the parameter person
      * with its hashed password.
      * 
-     * @param {PersonDTO} person 
-     * @returns {PersonDTO} The created person
+     * @param {PersonDTO} person The person to store in the database.
+     * @returns {PersonDTO} The created person.
      */
     async createPerson(person) {
         return this.transactionManager.transaction(async (t) => {
@@ -47,8 +47,8 @@ class Controller {
     /**
      * Checks if a username is available in the database.
      * 
-     * @param {String} username
-     * @returns {Boolean} True if username is available or False if username is not available
+     * @param {String} username The username to check if it is available.
+     * @returns {Boolean} True if username is available or False if username is not available.
      */
     async isUsernameAvailable(username) {
         return this.transactionManager.transaction(async () => {
@@ -89,6 +89,28 @@ class Controller {
             } else {
                 return null;
             }
+        });
+    }
+
+    /**
+     * Fetches all competences from the database.
+     * 
+     * @returns {Array} The competenceDTOs
+     */
+    async getAllCompetences() {
+        return this.transactionManager.transaction(async (t) => {
+            return await this.recruitmentDAO.getAllCompetences();
+        });
+    }
+
+    /**
+     * Stores the application data in the database.
+     * 
+     * @param {ApplicationDTO} applicationDTO The application data to store.
+     */
+    async addApplication(applicationDTO) {
+        return this.transactionManager.transaction(async (t) => {
+            return await this.recruitmentDAO.addApplication(applicationDTO);
         });
     }
 }

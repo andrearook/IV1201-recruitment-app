@@ -1,5 +1,6 @@
 'use strict';
 
+const ApplicationDTO = require('../model/ApplicationDTO');
 const Authorization = require('./auth/Authorization');
 const RequestHandler = require('./RequestHandler');
 
@@ -30,12 +31,36 @@ class ApplicantApi extends RequestHandler {
             await this.getController();
 
             /**
-             * Get request handling applicant.
-             * Response with status 200: returns success message.
+             * Get request handling competences.
+             * Response with status 200: returns an array with competences.
              *               status 401: if not authorized.
              *               status 500: if an internal server error occurs.
              */
             this.router.get(
+                '/',
+                async (req, res, next) => {
+                    try {
+                        if( !(await Authorization.isSignedIn(this.contr, req, res)) ) {
+                            // The Authorization isSignedIn will send an error response
+                            return;
+                        }
+                        const competences = await this.contr.getAllCompetences();
+                        res.status(200).json({
+                            competences: competences,
+                        });
+                    } catch(err) {
+                        next(err);
+                    }
+                }
+            )
+
+            /**
+             * Post request handling applications.
+             * Response with status 200: returns success message.
+             *               status 401: if not authorized.
+             *               status 500: if an internal server error occurs.
+             */
+            this.router.post(
                 '/apply', 
                 async (req, res, next) => {
                     try {
@@ -43,8 +68,17 @@ class ApplicantApi extends RequestHandler {
                             // The Authorization isSignedIn will send an error response
                             return;
                         }
+                        const application = req.body;
+
+                        const applicationDTO = new ApplicationDTO(
+                            application.username, 
+                            application.competences,
+                            application.availabilities
+                        );
+                        await this.contr.addApplication(applicationDTO);
+
                         res.status(200).json({ 
-                            result: 'Successfull authorization', 
+                            result: 'Thank you for your application! We will address it soon.', 
                         });
                     } catch (err) {
                         next(err);
@@ -52,6 +86,27 @@ class ApplicantApi extends RequestHandler {
                 });
         } catch (err) {
             console.log('Error in applicant registerhandler: ' + err);
+        }
+    }
+
+    /**
+     * A helper funtion.
+     * Not currently in use.
+     * 
+     * @returns an object imitating the JSON of the application request.
+     */
+    getApplicationDataDummy() {
+        return {
+            username: "dbconn2",
+            competences: [
+                { id: 1, experience: 0.2 },
+                { id: 2, experience: 0.5 },
+                { id: 3, experience: 3 },
+            ],
+            availabilities: [
+                { from: "2022-06-01", to: "2022-06-30"},
+                { from: "2022-06-01", to: "2022-06-30"},
+            ],
         }
     }
 }
