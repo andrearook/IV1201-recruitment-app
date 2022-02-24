@@ -91,6 +91,17 @@ class Controller {
             }
         });
     }
+
+    /**
+     * Fetches all competences from the database.
+     * 
+     * @returns {Array} The competenceDTOs
+     */
+    async getAllCompetences() {
+        return this.transactionManager.transaction(async (t) => {
+            return await this.recruitmentDAO.getAllCompetences();
+        })
+    }
 }
 
 module.exports = Controller;

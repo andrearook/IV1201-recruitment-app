@@ -3,9 +3,12 @@
 const cls = require('cls-hooked');
 const Sequelize = require('sequelize');
 const WError = require('verror').WError;
+
 const Person = require('../model/Person');
 const PersonDTO = require('../model/PersonDTO');
 
+const Competence = require('../model/Competence');
+const CompetenceDTO = require('../model/CompetenceDTO');
 /**
  * RecruitmentDAO class is responsible for all database calls.
  * 
@@ -41,6 +44,7 @@ class RecruitmentDAO {
            );
         }
         Person.createModel(this.database);
+        Competence.createModel(this.database);
     }
 
     /**
@@ -111,9 +115,32 @@ class RecruitmentDAO {
     }
 
     /**
+     * Fetches and returns all competences
+     * 
+     * @returns {Array} The found competences.
+     */
+    async getAllCompetences() {
+        try {
+            const competences = await Competence.findAll();
+            console.log(competences);
+            return competences.map((competence) => this.createCompetenceDTO(competence));
+        } catch(err) {
+            throw new WError(
+                {
+                    cause: err,
+                    info: {
+                        RecruitmentDAO: 'Failed to fetch competences',
+                    },
+                },
+                'Could not fetch competences',
+            );
+        }
+    }
+
+    /**
      * Creates a PersonDTO
      * 
-     * @param {Person} personModel: The person to be created.  
+     * @param {Person} personModel The person to be created.  
      * @param {int} roleId: The role id for the personDTO to be created.
      * @returns {PersonDTO} The created person.
      */
@@ -127,6 +154,19 @@ class RecruitmentDAO {
             personModel.password,
             roleId,
             personModel.username,
+        );
+    }
+
+    /**
+     * Creates a CompetenceDTO
+     * 
+     * @param {Competence} competence The competence, e.g ticket sales.
+     * @returns {CompetenceDTO} The created competence.
+     */
+    createCompetenceDTO(competence) {
+        return new CompetenceDTO(
+            competence.competence_id,
+            competence.name,
         );
     }
 }

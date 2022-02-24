@@ -1,5 +1,5 @@
 import ApplicantHomepageView from "../views/ApplicantHomepageView";
-import { useState} from 'react';
+import { useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -12,6 +12,10 @@ import { useSelector } from "react-redux";
 function ApplicantHomepage() {
 
     const [result, setResult] = useState("");
+    /**
+     * For testing purposes
+     */
+    const [competences, setCompetences] = useState([]);
     const navigate = useNavigate();
 
     /**
@@ -47,6 +51,22 @@ function ApplicantHomepage() {
         });
     }
 
+    /**
+     * For testing purposes
+     * 
+     * @returns {Array} The competences
+     */
+    const getCompetences = async () => {
+        return await fetch('/applicant/', {
+            method: 'GET',
+            headers: {
+                'content-type': 'aplication/json',
+                'accept': 'application/json'
+            }
+        }).then(res => res.json())
+        .then(data => data.competences);
+    }
+
     // credentials: 'include' is a header that should probably 
     // be included later for auth
     const performAuth = async () => {
@@ -69,8 +89,19 @@ function ApplicantHomepage() {
         });
     }
 
+    /**
+     * For testing purposes.
+     * 
+     */
+    useEffect(() => {
+        getCompetences().then((comp) => {
+            setCompetences(comp);
+        })
+    }, []);
+
     return (
         ApplicantHomepageView({
+            competences, //for testing purposes
             reduxPerson,
             handleClick, 
             result
