@@ -6,22 +6,24 @@ const Person = require('./Person');
 
 /**
  * The CompetenceProfile class holding the information about the
- * person's competence id and experience.
+ * person's competence id and experience in years.
  */
 class CompetenceProfile extends Model {
 
     /**
-     * The name of the CompetenceProfile model
+     * The name of the CompetenceProfile model.
      */
     static get COMPETENCE_PROFILE_MODEL_NAME() {
         return 'competence_profile';
     }
 
     /**
-     * Defines the CompetenceProfile Entity
+     * Defines the CompetenceProfile Entity.
+     * Foreign key person_id to a Person Entity.
+     * Foreign key competence_id to a Competence Entity.
      * 
-     * @param {Sequelize} sequelize Object
-     * @returns {Model} The sequelize model of the CompetenceProfile Entity
+     * @param {Sequelize} sequelize The database object.
+     * @returns {Model} The sequelize model of the CompetenceProfile Entity.
      */
     static createModel(sequelize) {
         CompetenceProfile.init({
@@ -41,8 +43,8 @@ class CompetenceProfile extends Model {
             freezeTableName: true, 
             timestamps: false
         });
-        CompetenceProfile.belongsTo(Person);
-        CompetenceProfile.belongsTo(Competence);
+        CompetenceProfile.belongsTo(Person, { foreignKey: 'person_id' });
+        CompetenceProfile.belongsTo(Competence, { foreignKey: 'competence_id' });
         return CompetenceProfile;
     }
 }

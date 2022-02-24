@@ -3,22 +3,22 @@
 const {Sequelize, Model, DataTypes} = require('sequelize');
 
 /**
- * A person of the Recruitment App
+ * A person of the Recruitment App.
  */
 class Person extends Model {
 
     /**
-     * The name of the Person model
+     * The name of the Person model.
      */
     static get PERSON_MODEL_NAME() {
         return 'person';
     }
 
     /**
-     * Defines the Person Entity
+     * Defines the Person Entity.
      * 
-     * @param {Sequelize} sequelize Object
-     * @returns {Model} The sequelize model of the Person Entity
+     * @param {Sequelize} sequelize The database object.
+     * @returns {Model} The sequelize model of the Person Entity.
      */
     static createModel(sequelize) {
         Person.init({
