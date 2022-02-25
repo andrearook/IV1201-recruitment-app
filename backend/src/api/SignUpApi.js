@@ -3,6 +3,7 @@
 const {check, validationResult} = require('express-validator');
 const PersonDTO = require('../model/PersonDTO');
 const RequestHandler = require('./RequestHandler');
+const Authorization = require('./auth/Authorization');
 
 /**
  * This is the REST API for signing up a user.
@@ -108,7 +109,8 @@ class SignUpApi extends RequestHandler {
                             req.body.username
                         );
                         const createdPerson = await this.contr.createPerson(person);
-                        console.log(createdPerson);
+                        Authorization.setAuthCookie(createdPerson, res);
+
                         res.status(200).json({ 
                             result: 'Successfull signup',
                             person: {
