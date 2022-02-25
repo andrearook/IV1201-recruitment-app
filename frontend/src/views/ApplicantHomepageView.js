@@ -23,7 +23,7 @@
             <h3>Do you want to apply for a job? Fill in your application below.</h3>
             <p>{result}</p>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={e => handleSubmit(e)}>
                 {competence.map((element, index) => (
                     <div key={index}>
                         <select name="id" onChange={e => handleChangeCompetence(index, e)}>
@@ -33,7 +33,7 @@
                         ))}
                         </select>
                                 
-                        <input type="number" name="experience" placeholder="Years of experience" onChange={e => handleChangeCompetence(index, e)} />
+                        <input type="number" min="0" step="0.1" name="experience" placeholder="Years of experience" onChange={e => handleChangeCompetence(index, e)} />
                     </div>
                 ))}
                 <button type="button" onClick={() => handleAddCompetence()}>Add Competence</button>
