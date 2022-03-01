@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import RecruiterHomepageView from "../views/RecruiterHomepageView";
@@ -21,6 +22,16 @@ function RecruiterHomepage() {
      */
      const reduxPerson = useSelector(state => state.auth.person);
 
+    /**
+     * These next two lines is for react localization 
+     * to be able to switch between enlish and swedish.
+     * returnObjects:true is needed so we can handle our translation.JSON 
+     * as an object.
+     * name: reduxPerson.name is loaded in the translation.json file at recruiter.header : {{name}}
+     */
+     const {t} = useTranslation('translation');
+     const recruiter_lang = t("app.recruiter", {framework:'React', returnObjects:true, name: reduxPerson.name});
+      
     /**
      * Helper function to verify that JWT is working.
      * This method might change futher on.
@@ -70,7 +81,7 @@ function RecruiterHomepage() {
     
     return (
         RecruiterHomepageView({
-            reduxPerson,
+            recruiter_lang,
             handleClick,
             result
         })

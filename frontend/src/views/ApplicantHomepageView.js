@@ -5,10 +5,10 @@
  * @returns A view, a user interface, to display in the browser.
  */
  function ApplicantHomepageView({
+    applicant_lang,
     competenceList,
     competence,
     availability,
-    reduxPerson,
     handleAddCompetence, 
     handleChangeCompetence,
     handleAddAvailability,
@@ -19,24 +19,24 @@
  }) {
     return (
         <div className="App">
-            <h1>Welcome {reduxPerson.name} to the recruitment application!</h1>
-            <h3>Do you want to apply for a job? Fill in your application below.</h3>
+            <h1>{applicant_lang.header}</h1>
+            <h3>{applicant_lang.applytext}</h3>
             <p>{result}</p>
 
             <form onSubmit={e => handleSubmit(e)}>
                 {competence.map((element, index) => (
                     <div key={index}>
                         <select name="id" onChange={e => handleChangeCompetence(index, e)}>
-                        <option value="">Select competence</option>
+                        <option value="">{applicant_lang.competence}</option>
                         {competenceList.map(competence => (
                             <option key={competence.id} value={competence.id}>{competence.name}</option>
                         ))}
                         </select>
                                 
-                        <input type="number" min="0" step="0.1" name="experience" placeholder="Years of experience" onChange={e => handleChangeCompetence(index, e)} />
+                        <input type="number" min="0" step="0.1" name="experience" placeholder={applicant_lang.experience} onChange={e => handleChangeCompetence(index, e)} />
                     </div>
                 ))}
-                <button type="button" onClick={() => handleAddCompetence()}>Add Competence</button>
+                <button type="button" onClick={() => handleAddCompetence()}>{applicant_lang.addcompetence}</button>
 
                 {availability.map((element, index) => (
                     <div key={index}>       
@@ -44,25 +44,26 @@
                         <input type="date" name="to" placeholder="To" onChange={e => handleChangeAvailability(index, e)} />
                     </div>
                 ))}
-                <button type="button" onClick={() => handleAddAvailability()}>Add Availability</button>
+                <button type="button" onClick={() => handleAddAvailability()}>{applicant_lang.addavailability}</button>
                 <br />
                 
                 <br />
-                <h4>Entered information</h4>
+                <h4>{applicant_lang.enteredinformation}</h4>
 
                 {competence.map((c) => (
                     (c.id && c.experience && competenceList) ? 
-                    <p key={c.id}>{(competenceList.find(x => x.id == c.id)).name} with {c.experience} years experience</p>
+                    // eslint-disable-next-line eqeqeq
+                    <p key={c.id}>{(competenceList.find(x => x.id == c.id)).name} {applicant_lang.with} {c.experience} {applicant_lang.exp}</p>
                     : null
                 ))}
 
                 {availability.map((a, index) => (
                     (a.from && a.to) ? 
-                        <p key={index}>Can work from {a.from} to {a.to}</p>
+                        <p key={index}>{applicant_lang.from} {a.from} {applicant_lang.to} {a.to}</p>
                     : null
                 ))}
 
-                <button>Apply</button>
+                <button>{applicant_lang.apply}</button>
             </form>
 
         </div>

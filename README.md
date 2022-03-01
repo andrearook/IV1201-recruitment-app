@@ -36,7 +36,7 @@ The backend is using the MVC and Integration layered architecture to provide hig
 - If you do not already have node.js install it. Check version in your terminal with: `node -v`.
 - Clone this git repository.
 - Install all required npm packages by running the command `npm install` in both the `root` directory and the `frontend` directory.
-- Install postgres if you don't already have it. You can check installed version by running the command: `psql --version`. Log in with your postgres credentials and create the database. Install the following script https://canvas.kth.se/courses/31599/files/4988825?wrap=1 by running: `\i <pathToScript>`.
+- Install postgres if you don't already have it. You can check installed version by running the command: `psql --version`. Log in with your postgres credentials and create the database.
 
 ## Running the application in development mode
 1. Make a copy of the file `.env.example` and create your own `.env` file where you specify your settings. Make sure the server port matches the proxy specified in the frontend `package.json` file.

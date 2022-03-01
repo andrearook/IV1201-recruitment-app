@@ -2,6 +2,7 @@ import ApplicantHomepageView from "../views/ApplicantHomepageView";
 import { useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 /**
  * This is a React functional component which is responsible for the frontend logic
@@ -19,6 +20,16 @@ function ApplicantHomepage() {
 
     const reduxPerson = useSelector(state => state.auth.person);
 
+    /**
+     * These next two lines is for react localization 
+     * to be able to switch between enlish and swedish.
+     * returnObjects:true is needed so we can handle our translation.JSON 
+     * as an object.
+     * name: reduxPerson.name is loaded in the translation.json file at applicant.header : {{name}}
+     */
+     const {t} = useTranslation('translation');
+     const applicant_lang = t("app.applicant", {framework:'React', returnObjects:true, name: reduxPerson.name});
+      
     /**
      * Creates a GET-request fot fetching the competences to display
      * in ApplicantHomepageView. 
@@ -163,14 +174,14 @@ function ApplicantHomepage() {
                 setResult(res.data.error);
             }
         })
-    }, []);
+    }, [navigate]);
 
     return (
         ApplicantHomepageView({
+            applicant_lang,
             competenceList,
             competence,
             availability,
-            reduxPerson,
             handleAddCompetence, 
             handleChangeCompetence,
             handleAddAvailability,

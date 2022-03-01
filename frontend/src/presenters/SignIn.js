@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { setCurrentPerson } from '../store/actions/Actions';
@@ -16,6 +17,15 @@ function SignIn() {
     // Result could be an error message to show if and why the sign in failed
     const [result, setResult] = useState("");
 
+    /**
+     * These next two lines is for react localization 
+     * to be able to switch between enlish and swedish.
+     * returnObjects:true is needed so we can handle our translation.JSON 
+     * as an object.
+     */
+    const {t} = useTranslation('translation');
+    const signin_lang = t("app.signin", {framework:'React', returnObjects:true});
+     
     /**
      * useDispatch() will dispatch actions to the reducer.
      */
@@ -77,6 +87,7 @@ function SignIn() {
     }
 
     return SignInView({
+        signin_lang,
         handleSubmit, 
         handleChange, 
         result, 

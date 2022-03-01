@@ -1,0 +1,46 @@
+{
+    "app": {
+        "header": {
+            "greeting": "Welcome"
+        },
+        "signup": {
+            "pagename": "Sign up",
+            "name": "Name",
+            "surname": "Surname",
+            "ssn": "SSN",
+            "email": "Email",
+            "username": "Username",
+            "password": "Password"
+        },
+        "signin": {
+            "pagename": "Sign in",
+            "username": "Username",
+            "password": "Password",
+            "notregistered": "Don't have an account? Sign up!"
+        },
+        "applicant": {
+            "header": "Welcome {{name}} to the recruitment application",
+            "applytext": "Do you want to apply for a job? Fill in your application below.",
+            "competence": "Select competence",
+            "ticketsales": "Ticket sales",
+            "lotteries": "Lotteries",
+            "rollercoaster": "Roller coaster operation",
+            "experience": "Years of experience",
+            "addcompetence": "Add Competence",
+            "addavailability": "Add Availability",
+            "enteredinformation": "Entered information",
+            "exp": "years experience",
+            "with": "with",
+            "from": "Can work from",
+            "to": "to",
+            "apply": "Apply"
+        }, 
+        "recruiter": {
+            "header": "Welcome recruiter {{name}}",
+            "applicationstext": "Do you want to look at all applications?"
+        }, 
+        "footer": {
+            "info": "An application for the course IV1201"
+        }
+    }
+}
