@@ -3,6 +3,7 @@ import SignUpView from '../views/SignUpView';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { setCurrentPerson } from '../store/actions/Actions';
+import { useTranslation } from 'react-i18next';
 
 /**
  * This is the basic frontend to sign up a user. 
@@ -11,6 +12,15 @@ function SignUp() {
 
     const [returnedData, setReturnedData] = useState();
     const [person, setPerson] = useState({name: '', surname: '', pnr: '', email: '', password: '', username: ''});
+
+    /**
+     * These next two lines is for react localization 
+     * to be able to switch between enlish and swedish.
+     * returnObjects:true is needed so we can handle our translation.JSON 
+     * as an object.
+     */
+    const {t} = useTranslation('translation');
+    const signup_lang = t("app.signup", {framework:'React', returnObjects:true});
 
     const setInput = (e) => {
         const {name, value} = e.target;
@@ -67,6 +77,7 @@ function SignUp() {
     }
 
     return SignUpView({
+        signup_lang: signup_lang,
         setInput: setInput, 
         getData: getData, 
         returnedData: returnedData

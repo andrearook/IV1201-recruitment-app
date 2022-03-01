@@ -3,9 +3,9 @@
  * 
  * @returns A Footer view.
  */
-function FooterView() {
+function FooterView({footer}) {
     return (
-        <h3 className="footer">Application made for the course IV1201</h3>
+        <h3 className="footer">{footer}</h3>
     );
 }
 

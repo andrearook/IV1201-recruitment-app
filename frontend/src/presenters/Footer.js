@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import FooterView from "../views/FooterView";
 
 /**
@@ -7,8 +8,14 @@ import FooterView from "../views/FooterView";
  */
 function Footer() {
 
+    const {t} = useTranslation('translation');
+
+    const footer = t("app.footer.info", {framework:'React'});
+
     return (
-        FooterView()
+        FooterView({
+            footer: footer
+        })
     );
 }
 

@@ -4,11 +4,11 @@
  * 
  * @returns A view, a user interface, to display in the browser.
  */
-function RecruiterHomepageView({reduxPerson, handleClick, result}) {
+function RecruiterHomepageView({recruiter_lang, handleClick, result}) {
     return (
         <div className="App">
-            <h1>Welcome recruiter {reduxPerson.name}!</h1>
-            <h2>Do you want to look at all applications?</h2>
+            <h1>{recruiter_lang.header}</h1>
+            <h2>{recruiter_lang.applicationstext}</h2>
             <button onClick={handleClick}>Click me for auth</button>
             <p>{result}</p>
         </div>
