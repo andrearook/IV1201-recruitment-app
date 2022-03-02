@@ -8,7 +8,7 @@ function SignUpView ({signup_lang, setInput, getData, returnedData}) {
           <input type="email" name="email" placeholder={signup_lang.email} onChange={setInput}></input>
           <input type="text" name="username" placeholder={signup_lang.username} onChange={setInput}></input>
           <input type="password" name="password" placeholder={signup_lang.password} onChange={setInput}></input>
-          <button onClick={() => getData()}>Sign up</button>
+          <button onClick={() => getData()}>{signup_lang.signup}</button>
     
           <p>{returnedData ? returnedData : ''}</p>
           

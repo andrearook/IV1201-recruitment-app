@@ -24,6 +24,15 @@ class ApplicantApi extends RequestHandler {
     }
 
     /**
+     * @return {int} the role id allowed to access this API.
+     * Role id = 1: Recruiter
+     *         = 2: Applicant
+     */
+    get allowedRoleId() {
+        return 2;
+    }
+
+    /**
      * Registers the functions handling the requests.
      */
     async registerHandler() {
@@ -40,7 +49,7 @@ class ApplicantApi extends RequestHandler {
                 '/',
                 async (req, res, next) => {
                     try {
-                        if( !(await Authorization.isSignedIn(this.contr, req, res)) ) {
+                        if( !(await Authorization.isSignedIn(this.contr, this.allowedRoleId, req, res)) ) {
                             // The Authorization isSignedIn will send an error response
                             return;
                         }
@@ -64,7 +73,7 @@ class ApplicantApi extends RequestHandler {
                 '/apply', 
                 async (req, res, next) => {
                     try {
-                        if( !(await Authorization.isSignedIn(this.contr, req, res)) ) {
+                        if( !(await Authorization.isSignedIn(this.contr, this.allowedRoleId, req, res)) ) {
                             // The Authorization isSignedIn will send an error response
                             return;
                         }

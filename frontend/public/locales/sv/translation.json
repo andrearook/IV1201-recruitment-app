@@ -10,7 +10,8 @@
             "ssn": "Personnummer",
             "email": "Email",
             "username": "Användarnamn",
-            "password": "Lösenord"
+            "password": "Lösenord",
+            "signup": "Registrera ett konto"
         },
         "signin": {
             "pagename": "Logga in",
@@ -34,11 +35,14 @@
             "with": "med",
             "from": "Kan jobba från",
             "to": "till",
-            "apply": "Ansök"
+            "apply": "Ansök",
+            "cancel": "Avbryt",
+            "unauthorized": "Obehörig. Du kommer att skickas till sidan för att logga in"
         }, 
         "recruiter": {
             "header": "Välkommen rekryterare {{name}}",
-            "applicationstext": "Vill du kolla på alla ansökningar?"
+            "applicationstext": "Vill du kolla på alla ansökningar?",
+            "unauthorized": "Obehörig. Du kommer att skickas till sidan för att logga in"
         }, 
         "footer": {
             "info": "En applikation för kursen IV1201"
