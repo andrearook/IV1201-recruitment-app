@@ -2,6 +2,7 @@
 
 const RecruitmentDAO = require('../integration/RecruitmentDAO');
 const bcrypt = require('bcrypt');
+const PersonDTO = require('../model/PersonDTO');
 const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
 /**
@@ -39,7 +40,7 @@ class Controller {
     async createPerson(person) {
         return this.transactionManager.transaction(async (t) => {
             const hashedPassword = await bcrypt.hash(person.password, saltRounds);
-            const p = {...person, password: hashedPassword};
+            const p = new PersonDTO(person.personId, person.name, person.surname, person.pnr, person.email, hashedPassword, person.roleId, person.username);
             return await this.recruitmentDAO.createPerson(p);
         });
     }

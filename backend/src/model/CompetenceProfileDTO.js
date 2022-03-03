@@ -1,5 +1,8 @@
 'use strict';
 
+const Validation = require("../util/Validation");
+
+
 /**
  * The Competence Profile DTO, representing a competence profile.
  */
@@ -12,6 +15,8 @@ class CompetenceProfileDTO {
      * @param {Double} experience The experience in years, e.g. 0.2 years.
      */
     constructor(id, experience) {
+        Validation.isValidId(id, 'id');
+        Validation.isValidExperience(experience, 'experience');
         this.competence_id = id;
         this.years_of_experience = experience;
     }
