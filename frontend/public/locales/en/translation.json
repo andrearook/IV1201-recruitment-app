@@ -11,13 +11,15 @@
             "email": "Email",
             "username": "Username",
             "password": "Password",
-            "signup": "Sign up"
+            "signup": "Sign up",
+            "servererror" : "Something went wrong, please try again later."
         },
         "signin": {
             "pagename": "Sign in",
             "username": "Username",
             "password": "Password",
-            "notregistered": "Don't have an account? Sign up!"
+            "notregistered": "Don't have an account? Sign up!",
+            "servererror" : "Something went wrong, please try again later."
         },
         "applicant": {
             "header": "Welcome {{name}} to the recruitment application",
@@ -36,12 +38,14 @@
             "to": "to",
             "apply": "Apply",
             "cancel": "Cancel",
-            "unauthorized": "Unauthorized. You will be redirected to signin"
+            "unauthorized": "Unauthorized. You will be redirected to signin",
+            "servererror" : "Something went wrong, please try again later."
         }, 
         "recruiter": {
             "header": "Welcome recruiter {{name}}",
             "applicationstext": "Do you want to look at all applications?",
-            "unauthorized": "Unauthorized. You will be redirected to signin"
+            "unauthorized": "Unauthorized. You will be redirected to signin",
+            "servererror" : "Something went wrong, please try again later."
         }, 
         "footer": {
             "info": "An application for the course IV1201"

@@ -1,5 +1,7 @@
 'use strict';
 
+const Validation = require("../util/Validation");
+
 /**
  * The PersonDTO class, representing a Person.
  */
@@ -19,6 +21,14 @@ class PersonDTO {
      * @param {String} username the username of the person.
      */
     constructor(personId, name, surname, pnr, email, password, roleId = 2, username) {
+        Validation.isValidIdOrNothing(personId, 'personId');
+        Validation.isAlphaString(name, 'name');
+        Validation.isAlphaString(surname, 'surname');
+        Validation.isPersonNumberOrNothing(pnr, 'pnr');
+        Validation.isEmailOrNothing(email, 'email');
+        Validation.isNotEmptyString(password, 'password');
+        Validation.isValidId(roleId, 'roleId');
+        Validation.isAlphaNumericString(username, 'username');
         this.personId = personId;
         this.name = name;
         this.surname = surname;

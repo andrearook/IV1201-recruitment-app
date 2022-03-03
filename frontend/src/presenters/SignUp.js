@@ -44,7 +44,6 @@ function SignUp() {
      */
     const getData = async () => {
         let status;
-        let statusText;
         const newData = await fetch('/signup/', {
             method: 'POST',
             headers: {
@@ -61,10 +60,9 @@ function SignUp() {
             })
         }).then(res => {
             status = res.status;
-            statusText = res.statusText;
             return res.json();
         }).catch(err => {
-            return { error: statusText };
+            return { error: signup_lang.servererror };
         });
 
         if(status === 200) {

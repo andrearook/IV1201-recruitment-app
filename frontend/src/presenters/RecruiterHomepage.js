@@ -40,7 +40,6 @@ function RecruiterHomepage() {
      */
     const performAuth = async () => {
         let status;
-        let statusText;
         return await fetch('/recruiter/', {
             method: 'GET',
             headers: {
@@ -49,12 +48,11 @@ function RecruiterHomepage() {
             }
         }).then(res => {
             status = res.status;
-            statusText = res.statusText;
             return res.json();
         }).then(data => {
             return { status, data };
         }).catch(err => {
-            return { status, data: { error: statusText }};
+            return { status, data: { error: recruiter_lang.servererror }};
         });
     }
     

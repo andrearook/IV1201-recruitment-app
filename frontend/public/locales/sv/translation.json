@@ -11,13 +11,15 @@
             "email": "Email",
             "username": "Användarnamn",
             "password": "Lösenord",
-            "signup": "Registrera ett konto"
+            "signup": "Registrera ett konto",
+            "servererror" : "Något gick tyvärr fel, försök igen senare."
         },
         "signin": {
             "pagename": "Logga in",
             "username": "Användarnamn",
             "password": "Lösenord",
-            "notregistered": "Har du ej ett konto? Skapa ett här!"
+            "notregistered": "Har du ej ett konto? Skapa ett här!",
+            "servererror" : "Något gick tyvärr fel, försök igen senare."
 
         },
         "applicant": {
@@ -37,12 +39,14 @@
             "to": "till",
             "apply": "Ansök",
             "cancel": "Avbryt",
-            "unauthorized": "Obehörig. Du kommer att skickas till sidan för att logga in"
+            "unauthorized": "Obehörig. Du kommer att skickas till sidan för att logga in",
+            "servererror" : "Något gick tyvärr fel, försök igen senare."
         }, 
         "recruiter": {
             "header": "Välkommen rekryterare {{name}}",
             "applicationstext": "Vill du kolla på alla ansökningar?",
-            "unauthorized": "Obehörig. Du kommer att skickas till sidan för att logga in"
+            "unauthorized": "Obehörig. Du kommer att skickas till sidan för att logga in",
+            "servererror" : "Något gick tyvärr fel, försök igen senare."
         }, 
         "footer": {
             "info": "En applikation för kursen IV1201"
