@@ -32,10 +32,12 @@ class SignUpApi extends RequestHandler {
 
             /**
              * Post request handling signup.
-             * Response with status 200 returns success message
-             * Error return response status 400 if parameters are wrongly
-             * formatted, an error message is included.
-             * Returns status 500 if an internal server error occurs.
+             * 
+             * Response with status 200: returns success message.
+             *               status 400: if parameters are wrongly formatted,
+             *                           an error message is included.
+             *               status 409: if username not available.
+             *               status 500: if an internal server error occurs.
              */
             this.router.post(
                 '/', 

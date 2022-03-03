@@ -39,7 +39,6 @@ function ApplicantHomepage() {
      */
     const getCompetences = async () => {
         let status;
-        let statusText;
         return await fetch('/applicant/', {
             method: 'GET',
             headers: {
@@ -48,12 +47,11 @@ function ApplicantHomepage() {
             }
         }).then(res => {
             status = res.status;
-            statusText = res.statusText;
             return res.json();
         }).then(data => {
             return {status, data};
         }).catch(err => {
-            return {status, data: {error: statusText}};
+            return {status, data: {error: applicant_lang.servererror}};
         });
     }
 
@@ -135,7 +133,6 @@ function ApplicantHomepage() {
      */
     const performApply = async () => {
         let status;
-        let statusText;
         return await fetch('/applicant/apply/', {
             method: 'POST',
             headers: {
@@ -149,12 +146,11 @@ function ApplicantHomepage() {
             })
         }).then(res => {
             status = res.status;
-            statusText = res.statusText;
             return res.json();
         }).then(data => {
             return { status, data };
         }).catch(err => {
-            return { status, data: { error: statusText }};
+            return { status, data: { error: applicant_lang.servererror }};
         });
     }
 

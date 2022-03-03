@@ -67,8 +67,9 @@
                 <button>{applicant_lang.apply}</button>
             </form>
             < br />
-            <button onClick={() => handleReset()}>{applicant_lang.cancel}</button>
-
+            <div>
+                <button onClick={() => handleReset()}>{applicant_lang.cancel}</button>
+            </div>
         </div>
     );
 }
