@@ -4,12 +4,11 @@
  * 
  * @returns A view, a user interface, to display in the browser.
  */
-function RecruiterHomepageView({recruiter_lang, handleClick, result}) {
+function RecruiterHomepageView({recruiter_lang, result}) {
     return (
         <div className="App">
             <h1>{recruiter_lang.header}</h1>
             <h2>{recruiter_lang.applicationstext}</h2>
-            <button onClick={handleClick}>Click me for auth</button>
             <p>{result}</p>
         </div>
     );

@@ -14,6 +14,7 @@
     handleAddAvailability,
     handleChangeAvailability,
     handleSubmit,
+    handleReset,
     result,
      
  }) {
@@ -21,7 +22,7 @@
         <div className="App">
             <h1>{applicant_lang.header}</h1>
             <h3>{applicant_lang.applytext}</h3>
-            <p>{result}</p>
+            <p style={{color: "green"}}>{result}</p>
 
             <form onSubmit={e => handleSubmit(e)}>
                 {competence.map((element, index) => (
@@ -50,21 +51,23 @@
                 <br />
                 <h4>{applicant_lang.enteredinformation}</h4>
 
-                {competence.map((c) => (
+                {competence.map((c, index) => (
                     (c.id && c.experience && competenceList) ? 
                     // eslint-disable-next-line eqeqeq
-                    <p key={c.id}>{(competenceList.find(x => x.id == c.id)).name} {applicant_lang.with} {c.experience} {applicant_lang.exp}</p>
+                    <p key={index}>{(competenceList.find(x => x.id == c.id)).name} {applicant_lang.with} {c.experience} {applicant_lang.exp}</p>
                     : null
                 ))}
 
                 {availability.map((a, index) => (
                     (a.from && a.to) ? 
-                        <p key={index}>{applicant_lang.from} {a.from} {applicant_lang.to} {a.to}</p>
+                    <p key={index}>{applicant_lang.from} {a.from} {applicant_lang.to} {a.to}</p>
                     : null
                 ))}
 
                 <button>{applicant_lang.apply}</button>
             </form>
+            < br />
+            <button onClick={() => handleReset()}>{applicant_lang.cancel}</button>
 
         </div>
     );

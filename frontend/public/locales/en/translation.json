@@ -10,7 +10,8 @@
             "ssn": "SSN",
             "email": "Email",
             "username": "Username",
-            "password": "Password"
+            "password": "Password",
+            "signup": "Sign up"
         },
         "signin": {
             "pagename": "Sign in",
@@ -33,11 +34,14 @@
             "with": "with",
             "from": "Can work from",
             "to": "to",
-            "apply": "Apply"
+            "apply": "Apply",
+            "cancel": "Cancel",
+            "unauthorized": "Unauthorized. You will be redirected to signin"
         }, 
         "recruiter": {
             "header": "Welcome recruiter {{name}}",
-            "applicationstext": "Do you want to look at all applications?"
+            "applicationstext": "Do you want to look at all applications?",
+            "unauthorized": "Unauthorized. You will be redirected to signin"
         }, 
         "footer": {
             "info": "An application for the course IV1201"

@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 function ApplicantHomepage() {
 
     const [result, setResult] = useState("");
+    const [authorized, setAuthorized] = useState(false);
     const [competence, setCompetence] = useState([{ id: "", experience: ""}]);
     const [availability, setAvailability] = useState([{ from: "", to: ""}]);
     const [competenceList, setCompetenceList] = useState([{id: "", name: ""}]);
@@ -29,9 +30,9 @@ function ApplicantHomepage() {
      */
      const {t} = useTranslation('translation');
      const applicant_lang = t("app.applicant", {framework:'React', returnObjects:true, name: reduxPerson.name});
-      
+
     /**
-     * Creates a GET-request fot fetching the competences to display
+     * Creates a GET-request for fetching the competences to display
      * in ApplicantHomepageView. 
      * 
      * @returns The response containing the competences from the server.
@@ -111,13 +112,16 @@ function ApplicantHomepage() {
             switch(res.status){
                 case 200:   
                     setResult(res.data.result);
+                    setAuthorized(true);
+                    handleReset();
                     break;
                 case 401:   
-                    window.alert('Unauthorized. You will be redirected to signin');
+                    window.alert(applicant_lang.unauthorized);
                     navigate('/');
                     break;
                 default:    
                     setResult(res.data.error);
+                    setAuthorized(true);
                     break;
             }
         });
@@ -155,7 +159,26 @@ function ApplicantHomepage() {
     }
 
     /**
-     * This method runs at the initial render.
+     * Resets the input and select fields to their default value. Also
+     * resets the state for competence and availability.
+     */
+    const handleReset = () => {
+        Array.from(document.querySelectorAll("input")).forEach(
+            input => (input.value = "")
+        );
+
+        Array.from(document.querySelectorAll("select")).forEach(
+            select => (select.value = "")
+        );
+
+        setCompetence([{ id: "", experience: ""}]);
+        setAvailability([{ from: "", to: ""}]);
+    }
+
+    /**
+     * This method runs on the initial render, and any time the dependency value
+     * navigate changes.
+     * 
      * Gets the competences from the server and sets the competence list. 
      * If the response from the server returns
      *      status 200:     sets the competence list.
@@ -167,29 +190,37 @@ function ApplicantHomepage() {
         getCompetences().then((res) => {
             if(res.status === 200) {
                 setCompetenceList(res.data.competences);
+                setAuthorized(true);
             } else if(res.status === 401) {
-                window.alert('Unauthorized. You will be redirected to signin');
-                navigate('/');
+                window.alert(applicant_lang.unauthorized);
+                navigate('/', {message: applicant_lang.unauthorized});
             } else {
                 setResult(res.data.error);
+                setAuthorized(true);
             }
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [navigate]);
 
-    return (
-        ApplicantHomepageView({
-            applicant_lang,
-            competenceList,
-            competence,
-            availability,
-            handleAddCompetence, 
-            handleChangeCompetence,
-            handleAddAvailability,
-            handleChangeAvailability,
-            handleSubmit,
-            result,
-        })
-    );
+    if(authorized) {
+        return (
+            ApplicantHomepageView({
+                applicant_lang,
+                competenceList,
+                competence,
+                availability,
+                reduxPerson,
+                handleAddCompetence, 
+                handleChangeCompetence,
+                handleAddAvailability,
+                handleChangeAvailability,
+                handleSubmit,
+                handleReset,
+                result
+            })
+        )
+    } 
+    return <div className="App"></div>
 }
 
 export default ApplicantHomepage;

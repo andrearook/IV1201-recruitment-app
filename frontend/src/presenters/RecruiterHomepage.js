@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ import RecruiterHomepageView from "../views/RecruiterHomepageView";
  */
 function RecruiterHomepage() {
     const [result, setResult] = useState("");
+    const [authorized, setAuthorized] = useState(false);
     const navigate = useNavigate();
 
     /**
@@ -22,43 +23,21 @@ function RecruiterHomepage() {
      */
      const reduxPerson = useSelector(state => state.auth.person);
 
-    /**
+     /**
      * These next two lines is for react localization 
      * to be able to switch between enlish and swedish.
      * returnObjects:true is needed so we can handle our translation.JSON 
      * as an object.
      * name: reduxPerson.name is loaded in the translation.json file at recruiter.header : {{name}}
      */
-     const {t} = useTranslation('translation');
-     const recruiter_lang = t("app.recruiter", {framework:'React', returnObjects:true, name: reduxPerson.name});
-      
+      const {t} = useTranslation('translation');
+      const recruiter_lang = t("app.recruiter", {framework:'React', returnObjects:true, name: reduxPerson.name});
+
     /**
-     * Helper function to verify that JWT is working.
-     * This method might change futher on.
+     * Creates a GET-request to authorize the user.
      * 
-     * @param {Event} e The event from click on button
+     * @returns The response from the server.
      */
-    const handleClick = (e) => {
-        e.preventDefault();
-
-        performAuth().then(res => {
-            switch(res.status){
-                case 200:   
-                    setResult(res.data.result);
-                    break;
-                case 401:   
-                    window.alert('Unauthorized. You will be redirected to signin');
-                    navigate('/');
-                    break;
-                default:    
-                    setResult(res.data.error);
-                    break;
-            }
-        });
-    }
-
-    // credentials: 'include' is a header that should probably 
-    // be included later for auth
     const performAuth = async () => {
         let status;
         let statusText;
@@ -79,13 +58,42 @@ function RecruiterHomepage() {
         });
     }
     
-    return (
-        RecruiterHomepageView({
-            recruiter_lang,
-            handleClick,
-            result
+    /**
+     * This method runs on the initial render, and any time the dependency value
+     * navigate changes.
+     * 
+     * Gets the recruiter page from the server and authorizes the user. 
+     * If the response from the server returns
+     *      status 200:     sets the state variable authorized to true.
+     *      status 401:     informs the user about being unauthorized, and gets redirected
+     *                      to the sign in page.
+     *      status XXX:     default, sets an error message and sets the state variable authorized to true.
+     */
+     useEffect(() => {
+        performAuth().then((res) => {
+            if(res.status === 200) {
+                setAuthorized(true);
+            } else if(res.status === 401) {
+                window.alert(recruiter_lang.unauthorized);
+                navigate('/');
+            } else {
+                setAuthorized(true);
+                setResult(res.data.error);
+            }
         })
-    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [navigate]);
+
+    if(authorized) {
+        return (
+            RecruiterHomepageView({
+                recruiter_lang,
+                authorized, 
+                result        
+            })
+        );
+    } 
+    return <div className="App"></div>
 }
 
 export default RecruiterHomepage;

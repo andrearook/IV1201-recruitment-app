@@ -23,7 +23,8 @@ class Authorization {
         const isSessionCookie = {expires: 0};
         
         const jwtToken = jwt.sign(
-            {username: person.username},
+            {username: person.username,
+            role: person.role_id},
             process.env.JWT_SECRET,
             {
                 expiresIn: '30 minutes',
@@ -41,11 +42,12 @@ class Authorization {
      * Sets and sends the error message of the response if not signed in.
      * 
      * @param {Controller} contr The controller of the application.
+     * @param {int} allowedRoleId The role id that is allowed to acces the API.
      * @param {Request} req The Express Request Object.
      * @param {Response} res The Express Response Object.
      * @returns {Boolean} True if person is logged in and false if not logged in.
      */
-    static async isSignedIn(contr, req, res) {
+    static async isSignedIn(contr, allowedRoleId, req, res) {
         const authCookie = req.cookies.personAuth;
         if(!authCookie) {
             res.status(401).json({
@@ -56,7 +58,9 @@ class Authorization {
         try {
             const JWTPayload = jwt.verify(authCookie, process.env.JWT_SECRET);
             const personDoesNotExist = await contr.isUsernameAvailable(JWTPayload.username);
-            if(personDoesNotExist) {
+            const roleId = JWTPayload.role;
+
+            if(personDoesNotExist || (roleId !== allowedRoleId)) {
                 res.clearCookie(this.AUTH_COOKIE_NAME);
                 res.status(401).json({
                     error: 'Unauthorized. Invalid auth token'
