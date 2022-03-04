@@ -38,6 +38,22 @@ app.get('/', (req, res) => {
     return res.send('Welcome to the recruitment app!');
 });
 
+//i18next config
+const i18next = require('i18next');
+const Backend = require('i18next-fs-backend');
+const middleware = require('i18next-http-middleware');
+//Need middleware to get access to the request object.
+//In request object we will have access to the t function
+//which is needed to get access to the .json file.
+i18next.use(Backend).use(middleware.LanguageDetector)
+.init({
+    fallbackLng: 'en',
+    backend: {
+        loadPath: './locales/{{lng}}/translation.json'
+    }
+})
+app.use(middleware.handle(i18next));
+
 const reqHandlerLoader = require('./api/RequestHandlerLoader');
 reqHandlerLoader.loadRequestHandlers(app);
 reqHandlerLoader.loadErrorHandlers(app);

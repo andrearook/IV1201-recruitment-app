@@ -1,0 +1,38 @@
+{
+    "app": {
+        "signup": {
+            "signup_success": "Successfull signup!",
+            "check_name_field": "Fill in the name field.",
+            "check_name_alpha": "The name should only consist of letters.",
+            "check_name_length": "The name should be between 2 and 30 letters.",
+            "check_surname_field": "Fill in the surname field.",
+            "check_surname_alpha": "The surname should only consist of letters.",
+            "check_surname_length": "The surname should be between 2 and 30 letters.",
+            "check_numeric": "The personal number should consist of numbers.",
+            "check_pnr": "Fill in your personalnumber.",
+            "check_pnr_length": "The personal number should be given as 10 numbers.",
+            "check_email": "The email should have the format example@something.com",
+            "check_email_length": "The email should be min 5 and max 50 characters.",
+            "check_password_field": "Fill in the password field.",
+            "check_password_length": "The password must be at least 5 characters.",
+            "check_password_onenumber": "The password must contain at least one number.",
+            "check_username_field": "Fill in the username field.",
+            "check_username_alphanum": "The username should be letters and/or numbers.",
+            "check_username_length": "The username should be between 5 and 30 characters.",
+            "available_username": "Username already in use."
+        },
+        "signin": {
+            "check_name_field": "Fill in the username field.",
+            "check_name_alphanum": "Invalid username",
+            "check_password_field": "Fill in the password field",
+            "signin_success": "Successfull login.",
+            "error_403": "Wrong username or password."
+        }, 
+        "applicant": {
+            "application_success": "Thank you for your application! We will address it soon."
+        },
+        "errors": {
+            "error": "Server operation failed."
+        }
+    }
+}
