@@ -3,6 +3,7 @@ import { useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
 /**
  * This is a React functional component which is responsible for the frontend logic
@@ -12,7 +13,7 @@ import { useTranslation } from "react-i18next";
  */
 function ApplicantHomepage() {
 
-    const [result, setResult] = useState("");
+    const [result, setResult] = useState({ text: "", color: ""});
     const [authorized, setAuthorized] = useState(false);
     const [competence, setCompetence] = useState([{ id: "", experience: ""}]);
     const [availability, setAvailability] = useState([{ from: "", to: ""}]);
@@ -43,7 +44,8 @@ function ApplicantHomepage() {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
-                'accept': 'application/json'
+                'accept': 'application/json',
+                'accept-language': i18next.language
             }
         }).then(res => {
             status = res.status;
@@ -109,7 +111,7 @@ function ApplicantHomepage() {
         performApply().then(res => {
             switch(res.status){
                 case 200:   
-                    setResult(res.data.result);
+                    setResult({ text: res.data.result, color: "green"});
                     setAuthorized(true);
                     handleReset();
                     break;
@@ -118,7 +120,7 @@ function ApplicantHomepage() {
                     navigate('/');
                     break;
                 default:    
-                    setResult(res.data.error);
+                    setResult({ text: res.data.error, color: "red"});
                     setAuthorized(true);
                     break;
             }
@@ -191,12 +193,12 @@ function ApplicantHomepage() {
                 window.alert(applicant_lang.unauthorized);
                 navigate('/', {message: applicant_lang.unauthorized});
             } else {
-                setResult(res.data.error);
+                setResult({ text: res.data.error, color: "red"});
                 setAuthorized(true);
             }
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [navigate]);
+    }, [navigate, i18next.language]);
 
     if(authorized) {
         return (

@@ -54,7 +54,11 @@ class ApplicantApi extends RequestHandler {
                             // The Authorization isSignedIn will send an error response
                             return;
                         }
-                        const competences = await this.contr.getAllCompetences();
+                        const lang = req.header('accept-language');
+                        let competences = await this.contr.getAllCompetencesByLang(lang);
+                        if(!competences) {
+                            competences = await this.contr.getAllCompetences();
+                        }
                         res.status(200).json({
                             competences: competences,
                         });
@@ -94,6 +98,7 @@ class ApplicantApi extends RequestHandler {
                 check('availabilities.*.from', 'Fill in the \'from\' date field.')
                     .notEmpty()
                     .isISO8601({strict: true})
+                    .withMessage('The date must be valid.')
                     .isDate({format: 'YYYY-MM-DD', strictMode: true})
                     .withMessage('The from date should have format YYYY-MM-DD.')
                     .stripLow(true)
@@ -101,6 +106,7 @@ class ApplicantApi extends RequestHandler {
                 check('availabilities.*.to', 'Fill in the \'to\' date field.')
                     .notEmpty()
                     .isISO8601({strict: true})
+                    .withMessage('The date must be valid.')
                     .isDate({format: 'YYYY-MM-DD', strictMode: true})
                     .withMessage('The to date should have format YYYY-MM-DD.')
                     .stripLow(true)

@@ -22,7 +22,7 @@
         <div className="App">
             <h1>{applicant_lang.header}</h1>
             <h3>{applicant_lang.applytext}</h3>
-            <p style={{color: "green"}}>{result}</p>
+            <p style={{color: result.color}}>{result.text}</p>
 
             <form onSubmit={e => handleSubmit(e)}>
                 {competence.map((element, index) => (
