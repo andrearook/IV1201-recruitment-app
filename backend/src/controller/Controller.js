@@ -40,7 +40,16 @@ class Controller {
     async createPerson(person) {
         return this.transactionManager.transaction(async (t) => {
             const hashedPassword = await bcrypt.hash(person.password, saltRounds);
-            const p = new PersonDTO(person.personId, person.name, person.surname, person.pnr, person.email, hashedPassword, person.roleId, person.username);
+            const p = new PersonDTO(
+                person.personId, 
+                person.name, 
+                person.surname, 
+                person.pnr, 
+                person.email, 
+                hashedPassword, 
+                person.roleId, 
+                person.username
+            );
             return await this.recruitmentDAO.createPerson(p);
         });
     }
@@ -109,6 +118,16 @@ class Controller {
     async addApplication(applicationDTO) {
         return this.transactionManager.transaction(async (t) => {
             return await this.recruitmentDAO.addApplication(applicationDTO);
+        });
+    }
+
+    /**
+     * Fetches all competences in given language from the database.
+     * 
+     */
+     async getAllCompetencesByLang(language) {
+        return this.transactionManager.transaction(async (t) => {
+            return await this.recruitmentDAO.getAllCompetencesByLang(language);
         });
     }
 }

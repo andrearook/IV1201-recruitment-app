@@ -14,7 +14,12 @@ i18n
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
+        supportedLngs: ['en', 'sv'],
         fallbackLng: 'en', //default language if no language is detected.
+        detection: { 
+            order: ['localStorage', 'navigator'],
+            lookupLocalStorage: 'localStorage.i18nextLng'
+        },
 
         interpolation: {
             escapeValue: false //react already escapes all strings and is safe from XSS.

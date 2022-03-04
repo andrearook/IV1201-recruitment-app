@@ -12,6 +12,7 @@ const CompetenceDTO = require('../model/CompetenceDTO');
 const Availability = require('../model/Availability');
 const CompetenceProfile = require('../model/CompetenceProfile');
 const ApplicationDTO = require('../model/ApplicationDTO');
+const CompetenceName = require('../model/CompetenceName');
 
 /**
  * RecruitmentDAO class is responsible for all database calls.
@@ -51,6 +52,7 @@ class RecruitmentDAO {
         Competence.createModel(this.database);
         Availability.createModel(this.database);
         CompetenceProfile.createModel(this.database);
+        CompetenceName.createModel(this.database);
     }
 
     /**
@@ -182,6 +184,35 @@ class RecruitmentDAO {
                     },
                 },
                 'Could not store application',
+            );
+        }
+    }
+
+    /**
+     * Fetches and returns all competences with specified language.
+     * 
+     * @returns {Array} The found competences in given language, or null if
+     *                  no competence in given language is found.
+     */
+     async getAllCompetencesByLang(language) {
+        try {
+            Validation.isAlphaString(language, 'language');
+            const competences = await CompetenceName.findAll({ 
+                where: {language: language}},
+            );
+            if(competences.length !== 0) {
+                return competences.map((comp) => this.createCompetenceDTO(comp));
+            }
+            return null;
+        } catch(err) {
+            throw new WError(
+                {
+                    cause: err,
+                    info: {
+                        RecruitmentDAO: 'Failed to fetch competences by language',
+                    },
+                },
+                'Could not fetch competences by language',
             );
         }
     }
