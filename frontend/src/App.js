@@ -17,6 +17,7 @@ function App() {
             <Route path="signup" element={<SignUp />} />
             <Route path="applicanthomepage" element={<ApplicantHomepage />} />
             <Route path="recruiterhomepage" element={<RecruiterHomepage />} /> 
+            <Route path="*" element={<SignIn />} /> 
           </Routes>
           <Footer />
         </BrowserRouter>
