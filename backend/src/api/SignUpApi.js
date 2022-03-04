@@ -40,64 +40,64 @@ class SignUpApi extends RequestHandler {
              *               status 500: if an internal server error occurs.
              */
             this.router.post(
-                '/', 
-                check('name', 'Fill in the name field using letters.')
+                '/',
+                check('name', 'check_name_field')
                     .notEmpty()
                     .isAlpha()
-                    .withMessage('The name should only consist of letters.')
+                    .withMessage('check_name_alpha')
                     .isLength({min: 2, max: 30 })
-                    .withMessage('The name should be between 2 and 30 letters.')
+                    .withMessage('check_name_length')
                     .stripLow(true)
                     .escape(),
-                check('surname', 'Fill in the surname field using letters.')
+                check('surname', 'check_surname_field')
                     .notEmpty()
                     .isAlpha()
-                    .withMessage('The surname should only consist of letters.')
+                    .withMessage('check_surname_alpha')
                     .isLength({min: 2, max: 30 })
-                    .withMessage('The surname should be between 2 and 30 letters.')
+                    .withMessage('check_surname_length')
                     .stripLow(true)
                     .escape(),
-                check('pnr', 'Fill in the personal number field.')
+                check('pnr', 'check_pnr')
                     .notEmpty()
                     .isNumeric()
-                    .withMessage('The personal number should consist of numbers.')
+                    .withMessage('check_numeric')
                     .isLength({min: 10, max: 10})
-                    .withMessage('The personal number should be given as 10 numbers.')
+                    .withMessage('check_pnr_length')
                     .stripLow(true)
                     .escape(),
-                check('email', 'The email should have the format example@something.com')
+                check('email', 'check_email')
                     .notEmpty()
                     .isEmail()
                     .isLength({min: 5, max: 50})
-                    .withMessage('The email should be min 5 and max 50 characters.')
+                    .withMessage('check_email_length')
                     .stripLow(true)
                     .escape(),
-                check('password', 'Fill in the password field.')
+                check('password', 'check_password_field')
                     .notEmpty()
                     .isLength({ min: 5 })
-                    .withMessage('The password must be at least 5 characters.')
+                    .withMessage('check_password_length')
                     .matches(/\d/)
-                    .withMessage('The password must contain at least one number.')
+                    .withMessage('check_password_onenumber')
                     .stripLow(true)
                     .escape(),
-                check('username', 'Fill in the username field.')
+                check('username', 'check_username_field')
                     .notEmpty()
                     .isAlphanumeric()
-                    .withMessage('The username should be letters and/or numbers.')
+                    .withMessage('check_username_alphanum')
                     .isLength({min: 5, max: 30})
-                    .withMessage('The username should be between 5 and 30 characters.')
+                    .withMessage('check_username_length')
                     .stripLow(true)
                     .escape(),
                 async (req, res, next) => {
                     try {
                         const errors = validationResult(req);
                         if(!errors.isEmpty()) {
-                            res.status(400).json({ error: errors.array()[0].msg });
+                            res.status(400).json({ error: req.t('app.signup.' + errors.array()[0].msg) });
                             return;
                         }
                         const availableUsername = await this.contr.isUsernameAvailable(req.body.username);
                         if(!availableUsername){
-                            return res.status(409).json({ error: "Username already in use" });
+                            return res.status(409).json({ error: req.t('app.signup.available_username') });
                         }
 
                         const person = new PersonDTO(
@@ -112,9 +112,8 @@ class SignUpApi extends RequestHandler {
                         );
                         const createdPerson = await this.contr.createPerson(person);
                         Authorization.setAuthCookie(createdPerson, res);
-
                         res.status(200).json({ 
-                            result: 'Successfull signup',
+                            result: req.t('app.signup.signup_success'),
                             person: {
                                 name: createdPerson.name,
                                 surname: createdPerson.surname,

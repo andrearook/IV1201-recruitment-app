@@ -19,7 +19,7 @@ function SignUp() {
      * returnObjects:true is needed so we can handle our translation.JSON 
      * as an object.
      */
-    const {t} = useTranslation('translation');
+    const {t, i18n} = useTranslation('translation');
     const signup_lang = t("app.signup", {framework:'React', returnObjects:true});
 
     const setInput = (e) => {
@@ -48,7 +48,8 @@ function SignUp() {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'accept-language': i18n.language
             },
             body: JSON.stringify({
                 name: person.name,

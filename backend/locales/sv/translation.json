@@ -1,0 +1,38 @@
+{
+    "app": {
+        "signup": {
+            "signup_success": "Konto skapat!",
+            "check_name_field": "Fyll i ditt förnamn.",
+            "check_name_alpha": "Ditt förnamn ska endast bestå av bokstäver.",
+            "check_name_length": "Ditt förnamn måste vara mellan 2 och 30 bokstäver.",
+            "check_surname_field": "Fyll i ditt efternamn.",
+            "check_surname_alpha": "Ditt efternamn ska endast bestå av bokstäver.",
+            "check_surname_length": "Ditt efternamn måste vara mellan 2 och 30 bokstäver.",
+            "check_numeric": "Personnumret ska endast bestå av nummer.",
+            "check_pnr": "Fyll i ditt personnummer.",
+            "check_pnr_length": "Personnumret ska bestå av 10 siffror.",
+            "check_email": "Email ska vara av formatet example@something.com.",
+            "check_email_length": "Email ska bestå av minst 5 och max 50 tecken.",
+            "check_password_field": "Fyll i ditt lösenord.",
+            "check_password_length": "Lösenordet ska minst vara 5 tecken.",
+            "check_password_onenumber": "Lösenordet måste innehålla minst ett nummer.",
+            "check_username_field": "Fyll i ditt användarnamn.",
+            "check_username_alphanum": "Användarnamnet bör bestå av både bokstäver och nummer.",
+            "check_username_length": "Användarnamnet bör vara mellan 5 och 30 tecken.",
+            "available_username": "Användarnamnet finns redan."
+        },
+        "signin": {
+            "check_name_field": "Fyll i ditt förnamn.",
+            "check_name_alphanum": "Ogiltigt användarnamn.",
+            "check_password_field": "Fyll i ditt lösenord.",
+            "signin_success": "Loggas in...",
+            "error_403": "Fel användarnamn eller lösenord."
+        }, 
+        "applicant": {
+            "application_success": "Tack för din ansökan! Vi hanterar den inom kort."
+        },
+        "errors": {
+            "error": "Något gick fel, prova igen senare."
+        }
+    }
+}

@@ -52,9 +52,7 @@ class RecruiterApi extends RequestHandler {
                             // The Authorization isSignedIn will send an error response
                             return;
                         }
-                        res.status(200).json({ 
-                            result: 'Successfull authorization', 
-                        });
+                        res.status(200).send();
                     } catch (err) {
                         next(err);
                     }

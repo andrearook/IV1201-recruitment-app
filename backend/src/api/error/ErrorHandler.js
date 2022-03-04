@@ -25,7 +25,7 @@ class ErrorHandler {
             if(res.headersSent) {
                 return next(err);
             }
-            res.status(500).send({error: 'Server operation failed.'});
+            res.status(500).send({error: req.t('app.errors.error')});
         });
     }
 }

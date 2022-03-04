@@ -29,7 +29,7 @@ function ApplicantHomepage() {
      * as an object.
      * name: reduxPerson.name is loaded in the translation.json file at applicant.header : {{name}}
      */
-     const {t} = useTranslation('translation');
+     const {t,i18n} = useTranslation('translation');
      const applicant_lang = t("app.applicant", {framework:'React', returnObjects:true, name: reduxPerson.name});
 
     /**
@@ -139,7 +139,8 @@ function ApplicantHomepage() {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                'accept': 'application/json'
+                'accept': 'application/json',
+                'accept-language': i18n.language
             },
             body: JSON.stringify({
                 username: reduxPerson.username,
