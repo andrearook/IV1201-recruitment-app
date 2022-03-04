@@ -78,44 +78,44 @@ class ApplicantApi extends RequestHandler {
              */
             this.router.post(
                 '/apply', 
-                check('username', 'Username missing or wrongly formatted.')
+                check('username', 'check_username')
                     .notEmpty()
                     .isAlphanumeric()
                     .isLength({min: 5, max: 30})
                     .stripLow(true)
                     .escape(),
-                check('competences.*.id', 'Choose a competence.')
+                check('competences.*.id', 'check_competences')
                     .notEmpty()
                     .isInt({min: 1})
                     .stripLow(true)
                     .escape(),
-                check('competences.*.experience', 'Fill in the experience field.')
+                check('competences.*.experience', 'check_experience')
                     .notEmpty()
                     .isNumeric({min: 0})
-                    .withMessage('Experience should be a number.')
+                    .withMessage('check_experience_format')
                     .stripLow(true)
                     .escape(),
-                check('availabilities.*.from', 'Fill in the \'from\' date field.')
+                check('availabilities.*.from', 'check_availabilities_from')
                     .notEmpty()
                     .isISO8601({strict: true})
-                    .withMessage('The date must be valid.')
+                    .withMessage('check_valid_date')
                     .isDate({format: 'YYYY-MM-DD', strictMode: true})
-                    .withMessage('The from date should have format YYYY-MM-DD.')
+                    .withMessage('check_date_format')
                     .stripLow(true)
                     .escape(),
-                check('availabilities.*.to', 'Fill in the \'to\' date field.')
+                check('availabilities.*.to', 'check_availabilities_to')
                     .notEmpty()
                     .isISO8601({strict: true})
-                    .withMessage('The date must be valid.')
+                    .withMessage('check_valid_date')
                     .isDate({format: 'YYYY-MM-DD', strictMode: true})
-                    .withMessage('The to date should have format YYYY-MM-DD.')
+                    .withMessage('check_date_format')
                     .stripLow(true)
                     .escape(),
                 async (req, res, next) => {
                     try {
                         const errors = validationResult(req);
                         if(!errors.isEmpty()) {
-                            res.status(400).json({ error: errors.array()[0].msg });
+                            res.status(400).json({ error: req.t('app.applicant.' + errors.array()[0].msg) });
                             return;
                         }
 

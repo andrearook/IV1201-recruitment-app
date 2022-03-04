@@ -29,7 +29,15 @@
             "error_403": "Fel användarnamn eller lösenord."
         }, 
         "applicant": {
-            "application_success": "Tack för din ansökan! Vi hanterar den inom kort."
+            "application_success": "Tack för din ansökan! Vi hanterar den inom kort.",
+            "check_username": "Användarnamn saknas eller är felformatterat.",
+            "check_competences": "Välj en kompetens.",
+            "check_experience": "Fyll i erfarenhet.",
+            "check_experience_format": "Erfarenhet måste vara ett tal.",
+            "check_availabilities_from": "Fyll i från-datum.",
+            "check_valid_date": "Datumet måste vara giltigt.",
+            "check_date_format": "Datumet måste ha formatet ÅÅÅÅ-MM-DD.",
+            "check_availabilities_to": "Fyll i till-datum."
         },
         "errors": {
             "error": "Något gick fel, prova igen senare."
