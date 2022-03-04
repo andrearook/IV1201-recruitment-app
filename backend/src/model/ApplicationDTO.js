@@ -1,5 +1,6 @@
 'use strict';
 
+const Validation = require("../util/Validation");
 const AvailabilityDTO = require("./AvailabilityDTO");
 const CompetenceProfileDTO = require("./CompetenceProfileDTO");
 
@@ -16,6 +17,7 @@ class ApplicationDTO {
      * @param {Array} Availabilities The work periods the person is available.
      */
     constructor(username, competences, availabilities) {
+        Validation.isAlphaNumericString(username, 'username');
         this.username = username;
         this.competences = competences.map((comp) => new CompetenceProfileDTO(comp.id, comp.experience));
         this.availabilities = availabilities.map((avail) => new AvailabilityDTO(avail.from, avail.to));

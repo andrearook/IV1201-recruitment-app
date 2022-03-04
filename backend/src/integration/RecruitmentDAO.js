@@ -3,6 +3,7 @@
 const cls = require('cls-hooked');
 const Sequelize = require('sequelize');
 const WError = require('verror').WError;
+const Validation = require('../util/Validation');
 
 const Person = require('../model/Person');
 const PersonDTO = require('../model/PersonDTO');
@@ -10,6 +11,7 @@ const Competence = require('../model/Competence');
 const CompetenceDTO = require('../model/CompetenceDTO');
 const Availability = require('../model/Availability');
 const CompetenceProfile = require('../model/CompetenceProfile');
+const ApplicationDTO = require('../model/ApplicationDTO');
 
 /**
  * RecruitmentDAO class is responsible for all database calls.
@@ -70,6 +72,7 @@ class RecruitmentDAO {
      */
     async findPersonByUsername(username) {
         try {
+            Validation.isAlphaNumericString(username, 'username');
             const person = await Person.findOne({
                 where: {username: username},
             }); 
@@ -101,6 +104,7 @@ class RecruitmentDAO {
      */
     async createPerson(personDTO) {
         try {
+            Validation.isInstanceOf(personDTO, PersonDTO, 'personDTO', 'PersonDTO');
             const person = await Person.create(personDTO);
             return this.createPersonDTO(person, 2);
         } catch(err) {
@@ -148,6 +152,7 @@ class RecruitmentDAO {
      */
     async addApplication(applicationDTO) {
         try {
+            Validation.isInstanceOf(applicationDTO, ApplicationDTO, 'applicationDTO', 'ApplicationDTO');
             // Find the person that the application should belong to
             const personModel = await Person.findOne({
                 where: {username: applicationDTO.username},

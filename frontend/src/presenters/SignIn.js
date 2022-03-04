@@ -67,8 +67,6 @@ function SignIn() {
     // be included later for auth
     const performSignIn = async () => {
         let status;
-        let statusText;
-        
         return await fetch('/signin/', {
             method: 'POST',
             headers: {
@@ -79,12 +77,11 @@ function SignIn() {
             body: JSON.stringify(credentials)
         }).then(res => {
             status = res.status;
-            statusText = res.statusText;
             return res.json();
         }).then(data => {
             return { status, data };
         }).catch(err => {
-            return { status, data: { error: statusText }};
+            return { status, data: { error: signin_lang.servererror }};
         });
     }
 
