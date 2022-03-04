@@ -58,6 +58,17 @@ const reqHandlerLoader = require('./api/RequestHandlerLoader');
 reqHandlerLoader.loadRequestHandlers(app);
 reqHandlerLoader.loadErrorHandlers(app);
 
+// To ensure that the react routing will work in production
+if(process.env.NODE_ENV === "production") {
+    app.get('*', (req, res) => {
+        return res.sendFile(path.join(__dirname, "/../../frontend/build/index.html"));
+    });
+} else {
+    app.get('*', (req, res) => {
+        return res.send('Resource not found.');
+    });
+}
+
 const server = app.listen(process.env.PORT || process.env.SERVER_PORT, () => {
     console.log('Server up at ' + server.address().address + ':' + server.address().port);
 });
