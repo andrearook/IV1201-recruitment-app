@@ -23,7 +23,7 @@ function SignIn() {
      * returnObjects:true is needed so we can handle our translation.JSON 
      * as an object.
      */
-    const {t} = useTranslation('translation');
+    const {t, i18n} = useTranslation('translation');
     const signin_lang = t("app.signin", {framework:'React', returnObjects:true});
      
     /**
@@ -68,11 +68,13 @@ function SignIn() {
     const performSignIn = async () => {
         let status;
         let statusText;
+        
         return await fetch('/signin/', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                'accept': 'application/json'
+                'accept': 'application/json',
+                'accept-language': i18n.language
             },
             body: JSON.stringify(credentials)
         }).then(res => {

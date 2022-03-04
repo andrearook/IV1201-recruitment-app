@@ -40,13 +40,13 @@ class SignInApi extends RequestHandler {
              */
             this.router.post(
                 '/', 
-                check('username', 'Fill in the username field.')
+                check('username', 'check_name_field')
                     .notEmpty()
                     .isAlphanumeric()
-                    .withMessage('Invalid username.')
+                    .withMessage('check_name_alphanum')
                     .stripLow(true)
                     .escape(),
-                check('password', 'Fill in the password field.')
+                check('password', 'check_password_field')
                     .notEmpty()
                     .stripLow(true)
                     .escape(),
@@ -54,7 +54,7 @@ class SignInApi extends RequestHandler {
                     try {
                         const errors = validationResult(req);
                         if(!errors.isEmpty()) {
-                            res.status(400).json({ error: errors.array()[0].msg });
+                            res.status(400).json({ error: req.t('app.signin.' + errors.array()[0].msg) });
                             return;
                         }
 
@@ -64,7 +64,7 @@ class SignInApi extends RequestHandler {
                             const role = (signedInPerson.role_id === 1) ? "recruiter" : "applicant";
                             Authorization.setAuthCookie(signedInPerson, res);
                             res.status(200).json({ 
-                                result: 'Successfull sign in',
+                                result: req.t('app.signin.signin_success'),
                                 person: {
                                     name: signedInPerson.name,
                                     surname: signedInPerson.surname,
@@ -73,7 +73,7 @@ class SignInApi extends RequestHandler {
                                 role: role
                             });
                         } else {
-                            res.status(403).json({ error: 'Wrong username or password'});
+                            res.status(403).json({ error: req.t('app.signin.error_403')});
                         }
                     } catch (err) {
                         next(err);

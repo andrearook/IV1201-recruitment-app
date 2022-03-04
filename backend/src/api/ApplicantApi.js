@@ -87,7 +87,7 @@ class ApplicantApi extends RequestHandler {
                         await this.contr.addApplication(applicationDTO);
 
                         res.status(200).json({ 
-                            result: 'Thank you for your application! We will address it soon.', 
+                            result: req.t('app.applicant.application_success'), 
                         });
                     } catch (err) {
                         next(err);
