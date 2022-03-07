@@ -37,6 +37,7 @@ The backend is using the MVC and Integration layered architecture to provide hig
 This application uses Postgres as its relational database. Sequelize is used as the Object Relational Mapping (ORM). 
 
 Below is the schema of our database:
+![Database schema](https://raw.githubusercontent.com/andrearook/IV1201-recruitment-app/develop/img/recruitment_db.png)
 
 ### Internationalization
 If you want to add another language to the application:
