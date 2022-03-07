@@ -78,12 +78,6 @@ class ApplicantApi extends RequestHandler {
              */
             this.router.post(
                 '/apply', 
-                check('username', 'check_username')
-                    .notEmpty()
-                    .isAlphanumeric()
-                    .isLength({min: 5, max: 30})
-                    .stripLow(true)
-                    .escape(),
                 check('competences.*.id', 'check_competences')
                     .notEmpty()
                     .isInt({min: 1})
@@ -123,10 +117,11 @@ class ApplicantApi extends RequestHandler {
                             // The Authorization isSignedIn will send an error response
                             return;
                         }
+                        const username = await Authorization.getJWTUsername(req);
                         const application = req.body;
 
                         const applicationDTO = new ApplicationDTO(
-                            application.username, 
+                            username, 
                             application.competences,
                             application.availabilities
                         );

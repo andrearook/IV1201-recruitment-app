@@ -30,7 +30,6 @@
         }, 
         "applicant": {
             "application_success": "Tack för din ansökan! Vi hanterar den inom kort.",
-            "check_username": "Användarnamn saknas eller är felformatterat.",
             "check_competences": "Välj en kompetens.",
             "check_experience": "Fyll i erfarenhet.",
             "check_experience_format": "Erfarenhet måste vara ett tal.",

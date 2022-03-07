@@ -30,7 +30,7 @@ function RecruiterHomepage() {
      * as an object.
      * name: reduxPerson.name is loaded in the translation.json file at recruiter.header : {{name}}
      */
-      const {t} = useTranslation('translation');
+      const {t, i18n} = useTranslation('translation');
       const recruiter_lang = t("app.recruiter", {framework:'React', returnObjects:true, name: reduxPerson.name});
 
     /**
@@ -44,7 +44,8 @@ function RecruiterHomepage() {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
-                'accept': 'application/json'
+                'accept': 'application/json',
+                'accept-language': i18n.language
             }
         }).then(res => {
             status = res.status;

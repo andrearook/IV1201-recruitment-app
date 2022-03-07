@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { setCurrentPerson } from '../store/actions/Actions';
+import { removeCurrentPerson, setCurrentPerson } from '../store/actions/Actions';
 import SignInView from '../views/SignInView';
 
 /**
@@ -84,6 +84,15 @@ function SignIn() {
             return { status, data: { error: signin_lang.servererror }};
         });
     }
+
+    /**
+     * Sets the redux person to its initial state on the initial render
+     * of signin.
+     */
+    useEffect(() => {
+        dispatch(removeCurrentPerson());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return SignInView({
         signin_lang,

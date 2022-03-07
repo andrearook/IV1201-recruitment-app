@@ -30,7 +30,6 @@
         }, 
         "applicant": {
             "application_success": "Thank you for your application! We will address it soon.",
-            "check_username": "Username missing or wrongly formatted.",
             "check_competences": "Choose a competence.",
             "check_experience": "Fill in the experience field.",
             "check_experience_format": "Experience should be a number.",

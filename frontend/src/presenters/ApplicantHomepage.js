@@ -3,7 +3,6 @@ import { useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import i18next from "i18next";
 
 /**
  * This is a React functional component which is responsible for the frontend logic
@@ -45,7 +44,7 @@ function ApplicantHomepage() {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'application/json',
-                'accept-language': i18next.language
+                'accept-language': i18n.language
             }
         }).then(res => {
             status = res.status;
@@ -128,7 +127,7 @@ function ApplicantHomepage() {
     }
 
     /**
-     * Creates a POST-request containing the persons username, the filled in competence
+     * Creates a POST-request containing the filled in competence
      * and availability.
      * 
      * @returns the response from the server.
@@ -143,7 +142,6 @@ function ApplicantHomepage() {
                 'accept-language': i18n.language
             },
             body: JSON.stringify({
-                username: reduxPerson.username,
                 competences: competence,
                 availabilities: availability,
             })
@@ -192,14 +190,14 @@ function ApplicantHomepage() {
                 setAuthorized(true);
             } else if(res.status === 401) {
                 window.alert(applicant_lang.unauthorized);
-                navigate('/', {message: applicant_lang.unauthorized});
+                navigate('/');
             } else {
                 setResult({ text: res.data.error, color: "red"});
                 setAuthorized(true);
             }
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [navigate, i18next.language]);
+    }, [navigate, i18n.language]);
 
     if(authorized) {
         return (

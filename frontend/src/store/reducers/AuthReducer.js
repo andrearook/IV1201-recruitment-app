@@ -1,3 +1,5 @@
+import storage from "redux-persist/lib/storage";
+
 const initialState = {
     person: {
         name: '',
@@ -20,6 +22,11 @@ function authReducer(state = initialState, action) {
             return {
                 ...state,
                 person: action.payload,
+            };
+        }
+        case 'auth/removeCurrentPerson': {
+            return {
+                ...initialState,
             };
         }
         default: 

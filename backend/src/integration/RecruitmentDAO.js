@@ -65,6 +65,28 @@ class RecruitmentDAO {
     }
 
     /**
+     * Checks the connection to the database.
+     * 
+     * @throws Throws an expection if a connection to the database 
+     * could not be established. 
+     */
+    async checkConnection() {
+        try {
+            await this.database.authenticate();
+        } catch(err) {
+            throw new WError(
+                {
+                    cause: err,
+                    info: {
+                        RecruitmentDAO: 'Failed to connect to the database.'
+                    },
+                },
+                'Could not connect to the database.',
+            );
+        }
+    }
+
+    /**
      * Finds a person in the database by calling Sequelize's method findOne()
      * while passing the parameter username.
      * 
