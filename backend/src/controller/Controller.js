@@ -27,6 +27,7 @@ class Controller {
      */
     static async createController() {
         const contr = new Controller();
+        await contr.recruitmentDAO.checkConnection();
         return contr;
     }
 

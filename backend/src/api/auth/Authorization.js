@@ -76,6 +76,21 @@ class Authorization {
             return false;
         }
     }
+
+    /**
+     * This method gets the username from the JWT. This method does not verify
+     * that the user is signed in, that is done by the method isSignedIn. 
+     * isSignedIn should always be called before this method is used. 
+     * 
+     * @param {Request} req The Express Request Object.
+     * @returns {String} The username from the JWT.
+     */
+    static async getJWTUsername(req) {
+        const authCookie = req.cookies.personAuth;
+        const JWTPayload = jwt.verify(authCookie, process.env.JWT_SECRET); 
+        
+        return JWTPayload.username;
+    }
 }
 
 module.exports = Authorization;

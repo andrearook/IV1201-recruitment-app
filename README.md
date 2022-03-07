@@ -21,6 +21,7 @@ This web application provides a service for people to sign up and apply for a jo
 - dotenv-safe
 - React
 - Redux
+- i18next
 
 ## Architecture
 
@@ -32,11 +33,34 @@ The frontend is using the MVP layered achitecture to provide high cohesion, enca
 ### Backend
 The backend is using the MVC and Integration layered architecture to provide high cohesion, encapsulation and low coupling. All calls from frontend are received in the `Api` layer (`View`), and all communication to the database is handled in the `Integration` layer. The `Model` layer contains all Sequelize models and DTO's and the `Controller` is responsible for all communication between the layers.  
 
+### Database
+This application uses Postgres as its relational database. Sequelize is used as the Object Relational Mapping (ORM). 
+
+Below is the schema of our database:
+
+### Internationalization
+If you want to add another language to the application:
+#### Backend
+- Add a new folder under backend/locales named with your language code (ISO 639-1).
+- Add a translation.json file in this new folder. The structure of this file must be the same as for the existing translation.json files. 
+
+#### Frontend
+- Add a new folder under frontend/public/locales named with your language code (ISO 639-1).
+- Add a translation.json file in this new folder. The structure of this file must be the same as for the existing translation.json files.
+- Add the language code under supportedLngs in i18n.js.
+- Add functionality to change to the new language in the user interface. 
+
+#### Database
+- To add a new language to the application you must also add competence names in this new language in the database. Do so by inserting new rows in the table `competence_name`. The following example is for inserting the french translation for ticket sales:
+`INSERT INTO competence_name (competence_id, language, name) VALUES (1, 'fr', 'la vente de billets');`
+- Repeat this for all competences.
+- All existing competences with their corresponing ids can be found in the table `competence`.
+
 ## Installation
 - If you do not already have node.js install it. Check version in your terminal with: `node -v`.
 - Clone this git repository.
 - Install all required npm packages by running the command `npm install` in both the `root` directory and the `frontend` directory.
-- Install postgres if you don't already have it. You can check installed version by running the command: `psql --version`. Log in with your postgres credentials and create the database.
+- Install postgres if you don't already have it. You can check installed version by running the command: `psql --version`. Log in with your postgres credentials and create the database (see the database model under [Database](#database).
 
 ## Running the application in development mode
 1. Make a copy of the file `.env.example` and create your own `.env` file where you specify your settings. Make sure the server port matches the proxy specified in the frontend `package.json` file.

@@ -12,8 +12,13 @@
  */
 
 const SET_PERSON = 'auth/setCurrentPerson';
+const REMOVE_PERSON = 'auth/removeCurrentPerson';
 
 export const setCurrentPerson = (person) => ({
     type: SET_PERSON,
     payload: person
+});
+
+export const removeCurrentPerson = () => ({
+    type: REMOVE_PERSON,
 });
