@@ -1,0 +1,55 @@
+{
+    "app": {
+        "header": {
+            "greeting": "Välkommen"
+        },
+        "signup": {
+            "pagename": "Registrering",
+            "name": "Namn",
+            "surname": "Efternamn",
+            "ssn": "Personnummer",
+            "email": "Email",
+            "username": "Användarnamn",
+            "password": "Lösenord",
+            "signup": "Registrera ett konto",
+            "servererror" : "Något gick tyvärr fel, försök igen senare."
+        },
+        "signin": {
+            "pagename": "Logga in",
+            "username": "Användarnamn",
+            "password": "Lösenord",
+            "notregistered": "Har du ej ett konto? Skapa ett här!",
+            "servererror" : "Något gick tyvärr fel, försök igen senare."
+
+        },
+        "applicant": {
+            "header": "Välkommen {{name}} till rekryteringsapplikationen",
+            "applytext": "Vill du söka jobb? Fyll i ansökningsformuläret nedan.",
+            "competence": "Välj kompetens",
+            "ticketsales": "Biljettförsäljning",
+            "lotteries": "Lotterier",
+            "rollercoaster": "Berg-o-dalbanevärd",
+            "experience": "Erfarenhet (år)",
+            "addcompetence": "Lägg till en kompetens",
+            "addavailability": "Lägg till en period",
+            "enteredinformation": "Din ansökan",
+            "exp": "års erfarenhet",
+            "with": "med",
+            "from": "Kan jobba från",
+            "to": "till",
+            "apply": "Ansök",
+            "cancel": "Avbryt",
+            "unauthorized": "Obehörig. Du kommer att skickas till sidan för att logga in",
+            "servererror" : "Något gick tyvärr fel, försök igen senare."
+        }, 
+        "recruiter": {
+            "header": "Välkommen rekryterare {{name}}",
+            "applicationstext": "Vill du kolla på alla ansökningar?",
+            "unauthorized": "Obehörig. Du kommer att skickas till sidan för att logga in",
+            "servererror" : "Något gick tyvärr fel, försök igen senare."
+        }, 
+        "footer": {
+            "info": "En applikation för kursen IV1201"
+        }
+    }
+}

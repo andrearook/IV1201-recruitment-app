@@ -1,0 +1,54 @@
+{
+    "app": {
+        "header": {
+            "greeting": "Welcome"
+        },
+        "signup": {
+            "pagename": "Sign up",
+            "name": "Name",
+            "surname": "Surname",
+            "ssn": "SSN",
+            "email": "Email",
+            "username": "Username",
+            "password": "Password",
+            "signup": "Sign up",
+            "servererror" : "Something went wrong, please try again later."
+        },
+        "signin": {
+            "pagename": "Sign in",
+            "username": "Username",
+            "password": "Password",
+            "notregistered": "Don't have an account? Sign up!",
+            "servererror" : "Something went wrong, please try again later."
+        },
+        "applicant": {
+            "header": "Welcome {{name}} to the recruitment application",
+            "applytext": "Do you want to apply for a job? Fill in your application below.",
+            "competence": "Select competence",
+            "ticketsales": "Ticket sales",
+            "lotteries": "Lotteries",
+            "rollercoaster": "Roller coaster operation",
+            "experience": "Years of experience",
+            "addcompetence": "Add Competence",
+            "addavailability": "Add Availability",
+            "enteredinformation": "Entered information",
+            "exp": "years experience",
+            "with": "with",
+            "from": "Can work from",
+            "to": "to",
+            "apply": "Apply",
+            "cancel": "Cancel",
+            "unauthorized": "Unauthorized. You will be redirected to signin",
+            "servererror" : "Something went wrong, please try again later."
+        }, 
+        "recruiter": {
+            "header": "Welcome recruiter {{name}}",
+            "applicationstext": "Do you want to look at all applications?",
+            "unauthorized": "Unauthorized. You will be redirected to signin",
+            "servererror" : "Something went wrong, please try again later."
+        }, 
+        "footer": {
+            "info": "An application for the course IV1201"
+        }
+    }
+}
