@@ -4,7 +4,7 @@
  * 
  * @returns A view, a user interface, to display in the browser.
  */
-function RecruiterHomepageView({recruiter_lang, result}) {
+function RecruiterHomepageView({ recruiter_lang, result }) {
     return (
         <div className="App">
             <h1>{recruiter_lang.header}</h1>

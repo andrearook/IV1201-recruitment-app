@@ -4,12 +4,12 @@
  * 
  * @returns A Header view.
  */
-function HeaderView({greeting, changeLang,name, surname}) {
+function HeaderView({greeting, changeLang, supportedLngs, name, surname}) {
     return (
         <h1 className="header">{greeting} {name} {surname}
-            <div className="button">
-                <button name = 'sv' onClick = {(e) => changeLang(e)}>Svenska</button>
-                <button name = 'en' onClick = {(e) => changeLang(e)}>English</button>
+            <div className="button">{supportedLngs.map((lang) => 
+                <button name={lang} key={lang} onClick = {(e) => changeLang(e)}>{lang}</button>
+            )}
             </div>
         </h1>
     );

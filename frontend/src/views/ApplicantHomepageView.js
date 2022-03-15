@@ -25,7 +25,7 @@
             <p style={{color: result.color}}>{result.text}</p>
 
             <form onSubmit={e => handleSubmit(e)}>
-                {competence.map((element, index) => (
+                {competence.map((ign, index) => (
                     <div key={index}>
                         <select name="id" onChange={e => handleChangeCompetence(index, e)}>
                         <option value="">{applicant_lang.competence}</option>
@@ -39,7 +39,7 @@
                 ))}
                 <button type="button" onClick={() => handleAddCompetence()}>{applicant_lang.addcompetence}</button>
 
-                {availability.map((element, index) => (
+                {availability.map((ign, index) => (
                     <div key={index}>       
                         <input type="date" name="from" placeholder="From" onChange={e => handleChangeAvailability(index, e)} />
                         <input type="date" name="to" placeholder="To" onChange={e => handleChangeAvailability(index, e)} />
