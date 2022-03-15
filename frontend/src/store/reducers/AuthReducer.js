@@ -1,6 +1,3 @@
-// Vi använder inte denna????
-//import storage from "redux-persist/lib/storage";
-
 const initialState = {
     person: {
         name: '',
