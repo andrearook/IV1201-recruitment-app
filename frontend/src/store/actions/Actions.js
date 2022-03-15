@@ -7,7 +7,7 @@
  * This is then accessed in the reducer via action.type and action.payload.
  * 
  * Name conventions for type: 'nameOfReducer/describingNameOfAction'
- * The name of reducer is set in combineReducer funtion in
+ * The name of reducer is set in combineReducer function in
  * RootReducer.js
  */
 

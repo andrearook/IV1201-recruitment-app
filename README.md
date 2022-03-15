@@ -49,7 +49,6 @@ If you want to add another language to the application:
 - Add a new folder under frontend/public/locales named with your language code (ISO 639-1).
 - Add a translation.json file in this new folder. The structure of this file must be the same as for the existing translation.json files.
 - Add the language code under supportedLngs in i18n.js.
-- Add functionality to change to the new language in the user interface. 
 
 #### Database
 - To add a new language to the application you must also add competence names in this new language in the database. Do so by inserting new rows in the table `competence_name`. The following example is for inserting the french translation for ticket sales:

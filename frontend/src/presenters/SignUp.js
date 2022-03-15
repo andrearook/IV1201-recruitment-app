@@ -10,12 +10,12 @@ import { useTranslation } from 'react-i18next';
  */
 function SignUp() {
 
-    const [returnedData, setReturnedData] = useState();
+    const [result, setResult] = useState();
     const [person, setPerson] = useState({name: '', surname: '', pnr: '', email: '', password: '', username: ''});
 
     /**
      * These next two lines is for react localization 
-     * to be able to switch between enlish and swedish.
+     * to be able to switch between english and swedish.
      * returnObjects:true is needed so we can handle our translation.JSON 
      * as an object.
      */
@@ -40,9 +40,9 @@ function SignUp() {
 
     /**
      * Creates a POST-request with the data filled in by the user in the client. 
-     * Receives the response from the server and sets the state variable "returnedData".
+     * Receives the response from the server and sets the state variable "result".
      */
-    const getData = async () => {
+    const signup = async () => {
         let status;
         const newData = await fetch('/signup/', {
             method: 'POST',
@@ -68,18 +68,18 @@ function SignUp() {
 
         if(status === 200) {
             dispatch(setCurrentPerson(newData.person));
-            setReturnedData(newData.result);
+            setResult(newData.result);
             navigate("/applicanthomepage");
         } else {
-            setReturnedData(newData.error);
+            setResult(newData.error);
         }
     }
 
     return SignUpView({
-        signup_lang: signup_lang,
-        setInput: setInput, 
-        getData: getData, 
-        returnedData: returnedData
+        signup_lang,
+        setInput, 
+        signup, 
+        result
     });
 }
 
