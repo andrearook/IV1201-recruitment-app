@@ -8,7 +8,6 @@ const saltRounds = parseInt(process.env.SALT_ROUNDS);
 /**
  * Controller class. This class is responsible of calling 
  * the model and integration layers.
- * 
  */
 class Controller {
 

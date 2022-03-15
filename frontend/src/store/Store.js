@@ -10,10 +10,8 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
  * This is the store that keeps track of the state.
  */
 
-/**
- * Redux persist is used to be able to refresh the page and still keep the 
- * state.
- */
+
+// Redux persist is used to be able to refresh the page and still keep the state.
 const persistConfig = {
     key: 'root',
     storage,

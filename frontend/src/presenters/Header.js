@@ -17,11 +17,14 @@ function Header() {
     const changeLang = (e) => {
         i18n.changeLanguage(e.target.name);
     }
+    const allLngs = i18n.options.supportedLngs;
+    const supportedLngs = allLngs.filter(lang => lang !== 'cimode');
 
     return (
         HeaderView({
             greeting: greeting,
             changeLang: changeLang,
+            supportedLngs: supportedLngs,
             name: reduxPerson.name,
             surname: reduxPerson.surname,
         })

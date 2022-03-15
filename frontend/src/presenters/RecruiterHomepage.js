@@ -25,7 +25,7 @@ function RecruiterHomepage() {
 
      /**
      * These next two lines is for react localization 
-     * to be able to switch between enlish and swedish.
+     * to be able to switch between english and swedish.
      * returnObjects:true is needed so we can handle our translation.JSON 
      * as an object.
      * name: reduxPerson.name is loaded in the translation.json file at recruiter.header : {{name}}
